@@ -40,4 +40,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function Perfil()//un usuario pertenece a un perfil
+    {
+        return $this->belongsTo('App\Models\Profile');
+    }
+
 }
