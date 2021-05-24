@@ -14,7 +14,7 @@ class movementtypes extends Seeder
      */
     public function run()
     {
-        
+
         $movements = new \App\Models\Movementtypes();
         $movements->nombre= 'entrada';
          $movements->save();
@@ -25,8 +25,7 @@ class movementtypes extends Seeder
 
 
 
-        // Salidas
-
+        
 
 
     }

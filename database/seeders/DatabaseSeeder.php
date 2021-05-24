@@ -18,8 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call(categories::class);
         $this->call(contacts::class);
         $this->call(suppliers::class);
-        $this->call(movements::class);
         $this->call(movementtypes::class);
+        $this->call(movements::class);
+
 
 
          //ejecutar siempre en la terminal
