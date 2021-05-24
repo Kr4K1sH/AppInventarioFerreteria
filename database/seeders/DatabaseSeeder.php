@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
         //especificar orden
         $this->call(profiles::class);
         $this->call(categories::class);
+        $this->call(contacts::class);
         $this->call(suppliers::class);
+        $this->call(movements::class);
+        $this->call(movementtypes::class);
+
 
          //ejecutar siempre en la terminal
          //1- composer dump-autoload (para encontrar todas las actualizaciones)
