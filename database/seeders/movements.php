@@ -26,6 +26,7 @@ class movements extends Seeder
         $movements->movementtype_id = '1';
 
         $movements->save();
+    
 
         $movements = new \App\Models\Movement();
         $movements->descripcion = 'devolución';
