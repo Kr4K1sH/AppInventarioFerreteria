@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use Exception;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -14,7 +15,14 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $display = Location::where('estado', true)->with('Products')->orderBy('descripcion', 'asc')->get();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -44,9 +52,16 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function show(Location $location)
+    public function show($id)
     {
-        //
+        try {
+            $display = Location::where('id', $id)->where('estado', true)->with('Products')->orderBy('descripcion', 'asc')->first();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

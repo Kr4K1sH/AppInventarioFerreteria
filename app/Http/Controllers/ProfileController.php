@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
+use Exception;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ProfileController extends Controller
 {
@@ -14,7 +16,14 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $profile = Profile::orderBy('descripcion', 'desc')->get();
+            $response = $profile;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -41,12 +50,19 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profile  $profile
+     * @param  \App\Models\Profile  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Profile $profile)
+    public function show($id)
     {
-        //
+        try {
+            $profile = Profile::where('id', $id)->first();
+            $response = $profile;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

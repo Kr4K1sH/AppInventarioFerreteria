@@ -27,6 +27,7 @@ class CreateProductsTable extends Migration
             $table->decimal('peso', 8, 2);
             $table->string('color', 20);
             $table->string('imagen', 2000);
+            $table->boolean('estado')->default(false);
 
             $table->timestamps();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Display;
+use Exception;
 use Illuminate\Http\Request;
 
 class DisplayController extends Controller
@@ -14,7 +15,14 @@ class DisplayController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $display = Display::with('products')->orderBy('descripcion', 'asc')->get();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -44,9 +52,16 @@ class DisplayController extends Controller
      * @param  \App\Models\Display  $display
      * @return \Illuminate\Http\Response
      */
-    public function show(Display $display)
+    public function show($id)
     {
-        //
+        try {
+            $display = Display::where('id', $id)->with('products')->orderBy('descripcion', 'asc')->first();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
