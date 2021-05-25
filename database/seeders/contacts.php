@@ -23,9 +23,9 @@ class contacts extends Seeder
            $contacts->nombre='Jose Hidalgo';
            $contacts->telefono= '5557154706';
            $contacts->correo= 'adir@adir.com.mx';
-           
-           $contacts->save();
 
+           $contacts->save();
+                
         //contacto para truper
         $contacts = new \App\Models\Contact();
         $contacts->nombre = 'Mario Quesada';

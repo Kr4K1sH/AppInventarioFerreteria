@@ -20,6 +20,7 @@ class suppliers extends Seeder
         $supplier->pais='MEX';
         $supplier->save();
 
+        $supplier->Contacts()->attach([1]);
      //Empresa herramientas de contruccion todo tipo
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Truper';
@@ -27,7 +28,7 @@ class suppliers extends Seeder
         $supplier->pais = 'MEX';
 
         $supplier->save();
-
+        $supplier->Contacts()->attach([2]);
         //heramientas de contruccion de todo tipo
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = '3M';
@@ -35,7 +36,7 @@ class suppliers extends Seeder
         $supplier->pais = 'CRC';
 
         $supplier->save();
-
+        $supplier->Contacts()->attach([3]);
         //empresa para jardineria
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Ever Green';
@@ -43,7 +44,7 @@ class suppliers extends Seeder
         $supplier->pais = 'CRC';
 
         $supplier->save();
-
+        $supplier->Contacts()->attach([4]);
 
         //empresa para el hogar cosas de higiene
         $supplier = new \App\Models\Supplier();
@@ -52,7 +53,7 @@ class suppliers extends Seeder
         $supplier->pais = 'CRC';
 
         $supplier->save();
-
+        $supplier->Contacts()->attach([5]);
         //empresa fontaneria
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Durman';
@@ -60,13 +61,13 @@ class suppliers extends Seeder
         $supplier->pais = 'CRC';
 
         $supplier->save();
-
+        $supplier->Contacts()->attach([6]);
         //empresa pintura
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Lanco';
         $supplier->direccion = 'Zona Franca Pro Park, al costado oeste de la Dos Pinos, Coyol, Alajuela';
         $supplier->pais = 'CRC';
         $supplier->save();
-
+        $supplier->Contacts()->attach([7]);
     }
 }
