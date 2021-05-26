@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Prophecy\Call\Call;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,14 +24,16 @@ class DatabaseSeeder extends Seeder
 
         //especificar orden
 
-        $this->call(profiles::class);
-        $this->call(user::class);
-        $this->call(display::class);
-        $this->call(categories::class);
-        $this->call(contacts::class);
-        $this->call(suppliers::class);
-        $this->call(movementtypes::class);
-        $this->call(movements::class);
+        $this->call(profilesseeder::class);
+        $this->call(userseeder::class);
+        $this->call(displayseeder::class);
+        $this->call(categoriesseeder::class);
+        $this->call(productseeder::class);
+        $this->call(contactsseeder::class);
+        $this->call(suppliersseeder::class);
+        $this->call(movementtypesseeders::class);
+        $this->call(movementsseeder::class);
+        $this->call(inventoryseeder::class);
 
 
 
