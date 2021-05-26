@@ -1,5 +1,16 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DisplayController;
+use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MovementController;
+use App\Http\Controllers\MovementtypesController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +24,97 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//127.0.0.1:8000/api/v1/inventory/
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::group(['prefix'=>'v1'], function(){
+    Route::group(['prefix'=>'inventory'], function(){
+
+        //profiles
+        Route::group([
+            'prefix' => 'profile'
+        ], function ($router) {
+            Route::get('', [ProfileController::class, 'index']);
+
+        });
+
+        //users
+        Route::group([
+            'prefix' => 'user'
+        ], function ($router){
+            Route::get('', [UserController::class, 'index']);
+
+        });
+
+        //category
+        Route::group([
+            'prefix' => 'category'
+        ], function ($router){
+            Route::get('', [CategoryController::class, 'index']);
+
+        });
+
+        //contact
+        Route::group([
+            'prefix' => 'contact'
+        ], function ($router){
+            Route::get('', [ContactController::class, 'index']);
+
+        });
+
+        //display
+        Route::group([
+            'prefix' => 'display'
+        ], function ($router){
+            Route::get('', [DisplayController::class, 'index']);
+
+        });
+
+        //location
+        Route::group([
+            'prefix' => 'location'
+        ], function ($router){
+            Route::get('', [LocationController::class, 'index']);
+
+        });
+
+        //movementtype
+        Route::group([
+            'prefix' => 'movementtype'
+        ], function ($router){
+            Route::get('', [MovementtypesController::class, 'index']);
+
+        });
+
+        //movement
+        Route::group([
+            'prefix' => 'movement'
+        ], function ($router){
+            Route::get('', [MovementController::class, 'index']);
+
+        });
+
+        //supplier
+        Route::group([
+            'prefix' => 'supplier'
+        ], function ($router){
+            Route::get('', [SupplierController::class, 'index']);
+
+        });
+
+        //product
+        Route::group([
+            'prefix' => 'product'
+        ], function ($router){
+            Route::get('', [ProductController::class, 'index']);
+
+        });
+
+        //inventory
+        Route::get('', [InventoryController::class, 'index']);
+
+
+
+    });//end group inventory
+
+});//end group v1
+

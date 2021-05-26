@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movement;
+use Exception;
 use Illuminate\Http\Request;
 
 class MovementController extends Controller
@@ -14,7 +15,14 @@ class MovementController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $movement = Movement::with('MovementType')->orderBy('descripcion', 'asc')->get();
+            $response = $movement;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -44,9 +52,16 @@ class MovementController extends Controller
      * @param  \App\Models\Movement  $movement
      * @return \Illuminate\Http\Response
      */
-    public function show(Movement $movement)
+    public function show($id)
     {
-        //
+        try {
+            $movement = Movement::where('id', $id)->with('MovementType')->orderBy('descripcion', 'asc')->get();
+            $response = $movement;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

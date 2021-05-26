@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use Exception;
 use Illuminate\Http\Request;
 
 class InventoryController extends Controller
@@ -14,7 +15,14 @@ class InventoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $user = Inventory::with(['Movement', 'User'])->orderBy('fecha', 'asc')->get();
+            $response = $user;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -41,12 +49,19 @@ class InventoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Inventory  $inventory
+     * @param  \App\Models\Inventory  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Inventory $inventory)
+    public function show($id)
     {
-        //
+        try {
+            $user = Inventory::where('id', $id)->with(['Movement', 'User'])->orderBy('fecha', 'asc')->first();
+            $response = $user;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

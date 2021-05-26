@@ -14,9 +14,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //especificar orden
-        $this->call(display::class);
+
         $this->call(profiles::class);
         $this->call(user::class);
+        $this->call(display::class);
         $this->call(categories::class);
         $this->call(contacts::class);
         $this->call(suppliers::class);

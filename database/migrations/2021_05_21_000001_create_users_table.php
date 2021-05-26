@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('estado')->default(false);
             $table->string('email', 45)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password', 45);
+            $table->string('password');
             $table->string('foto', 2000);
             $table->rememberToken();
             $table->unsignedInteger('perfil_id');
