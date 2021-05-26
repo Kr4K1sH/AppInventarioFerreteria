@@ -13,6 +13,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+         //ejecutar en la terminal
+         //1- composer dump-autoload (para encontrar todas las actualizaciones)
+         //
+         //
+         // este comando es una fucion de los dos comandos de abajo : php artisan migrate:refresh --seed
+         //  o botar las migraciones y recrealeas con : php artisan migrate:fresh
+         // y luego aplicar los seeds php artisan db:seed
+
         //especificar orden
         $this->call(display::class);
         $this->call(profiles::class);
@@ -25,11 +33,6 @@ class DatabaseSeeder extends Seeder
 
 
 
-         //ejecutar siempre en la terminal
-         //1- composer dump-autoload (para encontrar todas las actualizaciones)
-         //2- php artisan db:seed
-         //
-         // en caso de emergencia php artisan migrate:refresh --seed
-         //
+
     }
 }
