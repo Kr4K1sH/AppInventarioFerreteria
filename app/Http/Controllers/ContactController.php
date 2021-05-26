@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use Exception;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -14,7 +15,14 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $contact = Contact::with('Suppliers')->orderBy('nombre', 'asc')->get();
+            $response = $contact;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -33,9 +41,16 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($id)
     {
-        //
+        try {
+            $contact = Contact::where('id', $id)->with('Suppliers')->orderBy('nombre', 'asc')->get();
+            $response = $contact;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

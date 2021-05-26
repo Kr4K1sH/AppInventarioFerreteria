@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -14,7 +15,29 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $display = Product::with(['Category','Display','User', 'Locations'])
+                        ->orderBy('nombre', 'asc')->get();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function allEnable()
+    {
+        try {
+            $display = Product::where('estado', true)
+            ->with(['Category','Display','User', 'Locations'])
+                        ->orderBy('nombre', 'asc')->get();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -41,12 +64,35 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\Product  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function showEnable($id)
     {
-        //
+        try {
+            $display = Product::where('id', $id)->where('estado', true)
+                        ->with(['Category','Display','User', 'Locations'])
+                        ->orderBy('nombre', 'asc')->first();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function showDisable($id)
+    {
+        try {
+            $display = Product::where('id', $id)->where('estado', false)
+                        ->with(['Category','Display','User', 'Locations'])
+                        ->orderBy('nombre', 'asc')->first();
+            $response = $display;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -55,7 +101,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit( $product)
     {
         //
     }

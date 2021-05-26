@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $category = Category::where('estado', true)->with('products')->orderBy('nombre', 'asc')->get();
+            $response = $category;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -44,9 +52,16 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+        try {
+            $category = Category::where('id', $id)->with('products')->orderBy('nombre', 'asc')->first();
+            $response = $category;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

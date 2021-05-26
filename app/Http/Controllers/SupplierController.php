@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\supplier;
+use Exception;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
@@ -14,7 +15,14 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $contact = supplier::with('Contacts')->orderBy('nombre', 'asc')->get();
+            $response = $contact;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -44,9 +52,16 @@ class SupplierController extends Controller
      * @param  \App\Models\supplier  $supplier
      * @return \Illuminate\Http\Response
      */
-    public function show(supplier $supplier)
+    public function show($id)
     {
-        //
+        try {
+            $contact = supplier::where('id', $id)->with('Contacts')->orderBy('nombre', 'asc')->first();
+            $response = $contact;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
