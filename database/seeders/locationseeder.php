@@ -14,26 +14,17 @@ class locationseeder extends Seeder
     public function run()
     {
         //
-
-/*
- $table->string('descripcion', 45);
-            $table->boolean('estado')->default(false);
-            $table->timestamps();
-*/
           $location = new \App\Models\Location();
            $location->descripcion='Sucursal';
            $location->estado=true;
            $location->save();
 
-        //$location->Products()->attach([]);
 
+            $location = new \App\Models\Location();
+            $location->descripcion = 'Bodega';
+            $location->estado = true;
+            $location->save();
 
-        $location = new \App\Models\Location();
-        $location->descripcion = 'Bodega';
-        $location->estado = true;
-        $location->save();
-
-           //$location->Products()->attach([]);
 
     }
 }

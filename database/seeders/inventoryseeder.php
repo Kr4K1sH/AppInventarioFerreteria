@@ -14,18 +14,6 @@ class inventoryseeder extends Seeder
      */
     public function run()
     {
-        //
-        /*
-        $table->unsignedInteger('movement_id');
-        $table->string('description');
-        $table->date('fecha');
-        $table->unsignedInteger('user_id');
-        $table->integer('cantidad');
-        $table->timestamps();
-
-        $table->foreign('movement_id')->references('id')->on('movements');
-        $table->foreign('user_id')->references('id')->on('users');
-*/
 
 //Las fechas estan en UTC;
 
@@ -67,7 +55,7 @@ class inventoryseeder extends Seeder
         $inventory->cantidad = 30;
 
         $inventory->save();
-        
+
 
 
 

@@ -42,7 +42,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'user'
         ], function ($router){
             Route::get('', [UserController::class, 'index']);
-
+            Route::get('/{id}', [UserController::class, 'showEnable']);
         });
 
         //category
@@ -50,6 +50,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'category'
         ], function ($router){
             Route::get('', [CategoryController::class, 'index']);
+            Route::get('/{id}', [CategoryController::class, 'show']);
 
         });
 
@@ -58,7 +59,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'contact'
         ], function ($router){
             Route::get('', [ContactController::class, 'index']);
-
+            Route::get('/{id}', [ContactController::class, 'show']);
         });
 
         //display
@@ -66,6 +67,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'display'
         ], function ($router){
             Route::get('', [DisplayController::class, 'index']);
+            Route::get('/{id}', [DisplayController::class, 'show']);
 
         });
 
@@ -74,7 +76,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'location'
         ], function ($router){
             Route::get('', [LocationController::class, 'index']);
-
+            Route::get('/{id}', [LocationController::class, 'show']);
         });
 
         //movementtype
@@ -82,7 +84,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'movementtype'
         ], function ($router){
             Route::get('', [MovementtypesController::class, 'index']);
-
+            Route::get('/{id}', [MovementtypesController::class, 'show']);
         });
 
         //movement
@@ -90,6 +92,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'movement'
         ], function ($router){
             Route::get('', [MovementController::class, 'index']);
+            Route::get('/{id}', [MovementController::class, 'show']);
 
         });
 
@@ -106,12 +109,13 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'product'
         ], function ($router){
             Route::get('', [ProductController::class, 'index']);
+            Route::get('/{id}', [ProductController::class, 'showEnable']);
 
         });
 
         //inventory
         Route::get('', [InventoryController::class, 'index']);
-
+        Route::get('/{id}', [InventoryController::class, 'show']);
 
 
     });//end group inventory

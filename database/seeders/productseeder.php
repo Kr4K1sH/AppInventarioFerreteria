@@ -13,26 +13,7 @@ class productseeder extends Seeder
      */
     public function run()
     {
-        /*
-        $table->string('nombre', 45);
-        $table->text('descripcion');
-        $table->integer('cantidad_maxima');
-        $table->integer('cantidad_minima');
-        $table->integer('cantidad_total');
-        $table->decimal('costo_unidad', 8, 2);
-        $table->unsignedInteger('category_id');
-        $table->unsignedInteger('display_id');
-        $table->unsignedInteger('user_id');
-        $table->decimal('peso', 8, 2);
-        $table->string('color', 20);
-        $table->string('imagen', 2000);
 
-        $table->timestamps();
-
-        $table->foreign('category_id')->references('id')->on('categories');
-        $table->foreign('display_id')->references('id')->on('displays');
-        $table->foreign('user_id')->references('id')->on('users');
-*/
 
         #//Precios y demas fueron sacados de EPA COSTA RICA https://cr.epaenlinea.com/
 
@@ -53,7 +34,6 @@ class productseeder extends Seeder
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/3/0/3027010_211.jpg';
 
         $products->save();
-       
 
         // 2 herramientas de iluminacion
         $products = new \App\Models\Product();
@@ -71,7 +51,6 @@ class productseeder extends Seeder
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/f0b46f36c41ddcfe5166fd88e24e9484/1/5/1535052.jpg';
 
         $products->save();
-
 
         //3 productos para el hogar
 
@@ -91,7 +70,6 @@ class productseeder extends Seeder
 
         $products->save();
 
-
         //4 productos para jardineria
 
         $products = new \App\Models\Product();
@@ -109,7 +87,6 @@ class productseeder extends Seeder
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/0/8/0823046_21.jpg';
 
         $products->save();
-
 
         //5 productos plomeria
 
@@ -129,7 +106,6 @@ class productseeder extends Seeder
 
         $products->save();
 
-
         //6 productos Pintura
 
         $products = new \App\Models\Product();
@@ -147,5 +123,6 @@ class productseeder extends Seeder
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/0/2/0281077.jpg';
 
         $products->save();
+
     }
 }

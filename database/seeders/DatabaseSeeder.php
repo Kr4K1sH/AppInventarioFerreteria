@@ -34,6 +34,9 @@ class DatabaseSeeder extends Seeder
         $this->call(movementtypesseeders::class);
         $this->call(movementsseeder::class);
         $this->call(inventoryseeder::class);
+        $this->call(locationseeder::class);
+        $this->call(ProductLocation::class);
+
 
 
 
