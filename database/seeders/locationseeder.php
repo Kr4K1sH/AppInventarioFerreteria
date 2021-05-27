@@ -25,7 +25,8 @@ class locationseeder extends Seeder
            $location->estado=true;
            $location->save();
 
-        //$location->Products()->attach([]);
+
+       
 
 
         $location = new \App\Models\Location();
@@ -33,7 +34,7 @@ class locationseeder extends Seeder
         $location->estado = true;
         $location->save();
 
-           //$location->Products()->attach([]);
+
 
     }
 }

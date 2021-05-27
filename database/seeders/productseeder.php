@@ -53,7 +53,8 @@ class productseeder extends Seeder
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/3/0/3027010_211.jpg';
 
         $products->save();
-       
+        
+
 
         // 2 herramientas de iluminacion
         $products = new \App\Models\Product();
