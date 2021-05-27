@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use ProductLocation;
 use Prophecy\Call\Call;
 
 class DatabaseSeeder extends Seeder
@@ -36,9 +37,12 @@ class DatabaseSeeder extends Seeder
         $this->call(inventoryseeder::class);
         $this->call(locationseeder::class);
         $this->call(ProductLocation::class);
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> be654f1101d6bbaec398dc955c752aacbb0bf9ef
 
 
     }

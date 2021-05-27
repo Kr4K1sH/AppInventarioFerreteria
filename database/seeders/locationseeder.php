@@ -19,12 +19,22 @@ class locationseeder extends Seeder
            $location->estado=true;
            $location->save();
 
+<<<<<<< HEAD
+=======
+
+       
+
+>>>>>>> be654f1101d6bbaec398dc955c752aacbb0bf9ef
 
             $location = new \App\Models\Location();
             $location->descripcion = 'Bodega';
             $location->estado = true;
             $location->save();
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> be654f1101d6bbaec398dc955c752aacbb0bf9ef
 
     }
 }
