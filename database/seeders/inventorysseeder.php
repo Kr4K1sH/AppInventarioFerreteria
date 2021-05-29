@@ -25,7 +25,7 @@ class inventorysseeder extends Seeder
         $inventory->cantidad = 10;
 
         $inventory->save();
-        
+
 
 
         $inventory = new \App\Models\Inventory();
@@ -38,6 +38,7 @@ class inventorysseeder extends Seeder
         $inventory->save();
 
 
+
         $inventory = new \App\Models\Inventory();
         $inventory->movement_id = '1';
         $inventory->description = 'Devolucion de ceramica en mal estado rota 2 cajas';
@@ -48,6 +49,7 @@ class inventorysseeder extends Seeder
         $inventory->save();
 
 
+
         $inventory = new \App\Models\Inventory();
         $inventory->movement_id = '2';
         $inventory->description = 'devolucion de costales de abono rotos a proveedor';
@@ -56,5 +58,6 @@ class inventorysseeder extends Seeder
         $inventory->cantidad = 30;
 
         $inventory->save();
+      
     }
 }

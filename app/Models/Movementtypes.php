@@ -10,6 +10,6 @@ class Movementtypes extends Model
     use HasFactory;
     public function Movement()
     {
-        return $this->belongsTo('App\Models\Movement');
+        return $this->hasMany('App\Models\Movement');
     }
 }

@@ -18,7 +18,7 @@ class locationseeder extends Seeder
            $location->descripcion='Sucursal';
            $location->estado=true;
            $location->save();
-
+          
 
             /* Acuerdese que significa el numero 1 que es el ID del producto y se lo agregamos a cantidad asi se agrega una tabla pivote con campos adicionales */
            $location->Products()->attach([
