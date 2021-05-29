@@ -34,9 +34,6 @@ class suppliersseeder extends Seeder
         $supplier->Contacts()->attach([2]);
         $supplier->Products()->attach([1]);
 
-
-
-
         // 3 heramientas de contruccion de todo tipo
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = '3M';
@@ -72,8 +69,6 @@ class suppliersseeder extends Seeder
         $supplier->Contacts()->attach([5]);
         $supplier->Products()->attach([3]);
 
-
-
         //6 empresa fontaneria
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Durman';
@@ -84,8 +79,6 @@ class suppliersseeder extends Seeder
         #//se agregan relaciones
         $supplier->Contacts()->attach([6]);
         $supplier->Products()->attach([5]);
-
-
 
         //7 empresa Pintura
         $supplier = new \App\Models\Supplier();

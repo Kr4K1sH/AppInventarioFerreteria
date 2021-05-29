@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
-class inventoriesseeder extends Seeder
+class inventorysseeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,21 +15,7 @@ class inventoriesseeder extends Seeder
      */
     public function run()
     {
-        ////
-        /*
-        $table->unsignedInteger('movement_id');
-        $table->string('description');
-        $table->date('fecha');
-        $table->unsignedInteger('user_id');
-        $table->integer('cantidad');
-        $table->timestamps();
-
-        $table->foreign('movement_id')->references('id')->on('movements');
-        $table->foreign('user_id')->references('id')->on('users');
-*/
-
-        //Las fechas estan en UTC;
-
+        //
 
         $inventory = new \App\Models\Inventory();
         $inventory->movement_id = '1';
@@ -38,6 +25,7 @@ class inventoriesseeder extends Seeder
         $inventory->cantidad = 10;
 
         $inventory->save();
+        
 
 
         $inventory = new \App\Models\Inventory();
@@ -68,8 +56,5 @@ class inventoriesseeder extends Seeder
         $inventory->cantidad = 30;
 
         $inventory->save();
-
-
-
     }
 }

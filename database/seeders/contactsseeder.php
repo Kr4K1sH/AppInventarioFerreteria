@@ -13,10 +13,6 @@ class contactsseeder extends Seeder
      */
     public function run()
     {
-        //  $table->string('nombre', 45);
-      //  $table->string('telefono', 20);
-       // $table->string('correo', 45);
-
 
        // contacto para adir
            $contacts = new \App\Models\Contact();
@@ -34,6 +30,7 @@ class contactsseeder extends Seeder
         //agrega el supplier
 
          $contacts->save();
+         
 
         //agregar contact para 3M
         $contacts = new \App\Models\Contact();

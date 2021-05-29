@@ -16,7 +16,7 @@ class MovementtypesController extends Controller
     public function index()
     {
         try {
-            $movement = movementtypes::orderBy('nombre', 'asc')->get();
+            $movement = movementtypes::with('Movement')->orderBy('nombre', 'asc')->get();
             $response = $movement;
             return response()->json($response, 200);
 

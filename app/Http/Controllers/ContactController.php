@@ -41,7 +41,18 @@ class ContactController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
+    public function store(Contact $contact)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Contact  $contact
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
     {
         try {
             $contact = Contact::where('id', $id)->with('Suppliers')->orderBy('nombre', 'asc')->get();
@@ -51,17 +62,6 @@ class ContactController extends Controller
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Contact $contact)
-    {
-        //
     }
 
     /**
