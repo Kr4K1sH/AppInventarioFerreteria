@@ -14,9 +14,9 @@ class MovementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {//with('MovementType')->
         try {
-            $movement = Movement::with('MovementType')->orderBy('descripcion', 'asc')->get();
+            $movement = Movement::orderBy('descripcion', 'asc')->get();
             $response = $movement;
             return response()->json($response, 200);
 
