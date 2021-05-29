@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProductInventory extends Migration
+class InventoriesProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class ProductInventory extends Migration
      */
     public function up()
     {
-        Schema::create('product_inventory', function(Blueprint $table){
+        Schema::create('inventories_product', function (Blueprint $table) {
             $table->unsignedInteger('inventory_id');
             $table->unsignedInteger('product_id');
             $table->timestamps();
@@ -29,10 +29,10 @@ class ProductInventory extends Migration
      */
     public function down()
     {
-        Schema::table('product_inventory', function (Blueprint $table) {
-            $table->dropForeign('product_inventory_inventory_id_foreign');
-            $table->dropForeign('product_inventory_product_id_foreign');
+        Schema::table('inventories_product', function (Blueprint $table) {
+            $table->dropForeign('inventory_product_inventory_id_foreign');
+            $table->dropForeign('inventory_product_product_id_foreign');
         });
-        Schema::dropIfExists('product_inventory');
+        Schema::dropIfExists('inventory_product');
     }
 }

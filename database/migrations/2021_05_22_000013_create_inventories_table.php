@@ -34,7 +34,7 @@ class CreateInventoriesTable extends Migration
      */
     public function down()
     {
-        Schema::table('inventories', function(Blueprint $table){
+        Schema::table('inventories', function (Blueprint $table) {
             $table->dropForeign('inventories_movement_id_foreign');
             $table->dropForeign('inventories_user_id_foreign');
         });

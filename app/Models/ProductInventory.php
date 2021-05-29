@@ -9,7 +9,7 @@ class ProductInventory extends Model
 {
     use HasFactory;
 
-    public function Inventory()
+    public function Inventori()
     {
         return $this->belongsTo('App\Models\Inventory');
     }

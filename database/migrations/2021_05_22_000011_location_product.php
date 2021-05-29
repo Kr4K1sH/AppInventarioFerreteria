@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProductLocation extends Migration
+class LocationProduct extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class ProductLocation extends Migration
      */
     public function up()
     {
-        Schema::create('product_location', function(Blueprint $table){
+        Schema::create('location_product', function(Blueprint $table){
             $table->unsignedInteger('location_id');
             $table->unsignedInteger('product_id');
             $table->integer('cantidad');
@@ -30,10 +30,10 @@ class ProductLocation extends Migration
      */
     public function down()
     {
-        Schema::table('product_location', function (Blueprint $table) {
-            $table->dropForeign('product_location_location_id_foreign');
-            $table->dropForeign('product_location_product_id_foreign');
+        Schema::table('location_product', function (Blueprint $table) {
+            $table->dropForeign('location_product_location_id_foreign');
+            $table->dropForeign('location_product_product_id_foreign');
         });
-        Schema::dropIfExists('product_location');
+        Schema::dropIfExists('location_product');
     }
 }
