@@ -11,6 +11,6 @@ class Movement extends Model
 
     public function MovementType()
     {
-        return $this->belongsTo('App\Models\Movementtypes');
+        return $this->hasMany('App\Models\Movementtypes');
     }
 }

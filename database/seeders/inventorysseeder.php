@@ -25,7 +25,7 @@ class inventorysseeder extends Seeder
         $inventory->cantidad = 10;
 
         $inventory->save();
-
+        $inventory->Products()->attach([1]);
 
 
         $inventory = new \App\Models\Inventory();
@@ -36,7 +36,7 @@ class inventorysseeder extends Seeder
         $inventory->cantidad = 35;
 
         $inventory->save();
-
+        $inventory->Products()->attach([2]);
 
 
         $inventory = new \App\Models\Inventory();
@@ -47,7 +47,7 @@ class inventorysseeder extends Seeder
         $inventory->cantidad = 2;
 
         $inventory->save();
-
+        $inventory->Products()->attach([3]);
 
 
         $inventory = new \App\Models\Inventory();
@@ -58,6 +58,9 @@ class inventorysseeder extends Seeder
         $inventory->cantidad = 30;
 
         $inventory->save();
-      
+        $inventory->Products()->attach([4]);
+
+
+
     }
 }
