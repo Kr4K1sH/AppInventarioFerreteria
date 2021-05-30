@@ -55,7 +55,7 @@ class MovementController extends Controller
     public function show($id)
     {
         try {
-            $movement = Movement::where('id', $id)->with('MovementType')->orderBy('descripcion', 'asc')->get();
+            $movement = Movement::where('id', $id)->orderBy('descripcion', 'asc')->get();
             $response = $movement;
             return response()->json($response, 200);
 

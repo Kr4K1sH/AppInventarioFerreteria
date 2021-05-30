@@ -30,7 +30,7 @@ class ProductSupplier extends Migration
      */
     public function down()
     {
-        Schema::table('supplier_product', function (Blueprint $table) {
+        Schema::table('product_supplier', function (Blueprint $table) {
             $table->dropForeign('product_supplier_supplier_id_foreign');
             $table->dropForeign('product_supplier_product_id_foreign');
         });

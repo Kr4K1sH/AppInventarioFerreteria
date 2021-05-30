@@ -11,7 +11,7 @@ class Inventory extends Model
 
     public function Movement()//un usuario pertenece a un perfil
     {
-        return $this->hasMany('App\Models\Movement');
+        return $this->belongsTo('App\Models\Movement');
     }
 
     public function User()//un usuario pertenece a un perfil
