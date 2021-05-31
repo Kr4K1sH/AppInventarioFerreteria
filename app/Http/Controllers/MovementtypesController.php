@@ -67,10 +67,10 @@ class MovementtypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\movementtypes  $movementtypes
+     * @param  \App\Models\Movementtypes  $movementtypes
      * @return \Illuminate\Http\Response
      */
-    public function edit(movementtypes $movementtypes)
+    public function edit(Movementtypes $movementtypes)
     {
         //
     }

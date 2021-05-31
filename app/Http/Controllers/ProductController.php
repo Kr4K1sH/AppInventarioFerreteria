@@ -16,7 +16,7 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $display = Product::with(['Category','Display','User', 'Locations'])
+            $display = Product::with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
                         ->orderBy('nombre', 'asc')->get();
             $response = $display;
             return response()->json($response, 200);
@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
         try {
             $display = Product::where('estado', true)
-            ->with(['Category','Display','User', 'Locations'])
+            ->with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
                         ->orderBy('nombre', 'asc')->get();
             $response = $display;
             return response()->json($response, 200);
@@ -71,7 +71,7 @@ class ProductController extends Controller
     {
         try {
             $display = Product::where('id', $id)->where('estado', true)
-                        ->with(['Category','Display','User', 'Locations'])
+                        ->with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
                         ->orderBy('nombre', 'asc')->first();
             $response = $display;
             return response()->json($response, 200);
@@ -85,7 +85,7 @@ class ProductController extends Controller
     {
         try {
             $display = Product::where('id', $id)->where('estado', false)
-                        ->with(['Category','Display','User', 'Locations'])
+                        ->with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
                         ->orderBy('nombre', 'asc')->first();
             $response = $display;
             return response()->json($response, 200);

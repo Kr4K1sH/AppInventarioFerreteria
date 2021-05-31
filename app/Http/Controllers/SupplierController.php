@@ -16,7 +16,7 @@ class SupplierController extends Controller
     public function index()
     {
         try {
-            $contact = supplier::with('Contacts')->orderBy('nombre', 'asc')->get();
+            $contact = supplier::with(['Contacts', 'Products'])->orderBy('nombre', 'asc')->get();
             $response = $contact;
             return response()->json($response, 200);
 
@@ -55,7 +55,7 @@ class SupplierController extends Controller
     public function show($id)
     {
         try {
-            $contact = supplier::where('id', $id)->with('Contacts')->orderBy('nombre', 'asc')->first();
+            $contact = supplier::where('id', $id)->with(['Contacts', 'Products'])->orderBy('nombre', 'asc')->first();
             $response = $contact;
             return response()->json($response, 200);
 
