@@ -16,7 +16,7 @@ class InventoryController extends Controller
     public function index()
     {
         try {
-            $user = Inventory::with(['Movement', 'User'])->orderBy('fecha', 'asc')->get();
+            $user = Inventory::with(['Movement', 'User', 'Products'])->orderBy('fecha', 'asc')->get();
             $response = $user;
             return response()->json($response, 200);
 
@@ -55,7 +55,7 @@ class InventoryController extends Controller
     public function show($id)
     {
         try {
-            $user = Inventory::where('id', $id)->with(['Movement', 'User'])->orderBy('fecha', 'asc')->first();
+            $user = Inventory::where('id', $id)->with(['Movement', 'User', 'Products'])->orderBy('fecha', 'asc')->first();
             $response = $user;
             return response()->json($response, 200);
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Profile extends Model
 {
     use HasFactory;
-    
+
     public function users()//tiene muchos usuarios
     {
     return $this->hasMany('App\Models\User');

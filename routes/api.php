@@ -101,7 +101,7 @@ Route::group(['prefix'=>'v1'], function(){
             'prefix' => 'supplier'
         ], function ($router){
             Route::get('', [SupplierController::class, 'index']);
-
+            Route::get('/{id}', [SupplierController::class, 'show']);
         });
 
         //product
