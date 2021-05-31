@@ -13,6 +13,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,15 @@ Route::group(['prefix'=>'v1'], function(){
         Route::get('', [InventoryController::class, 'index']);
         Route::get('/{id}', [InventoryController::class, 'show']);
 
+
+        //agregando las rutas para acciones de identificacion segun la documentacion
+        //Rutasauth
+        Route::group([
+            'prefix'=>'auth'
+        ],function($router){
+            Route::post('login',[AuthController::class,'login']);
+            Route::post('register',[AuthController::class,'register']);Route::post('logout',[AuthController::class,'logout']);
+        });
 
     });//end group inventory
 
