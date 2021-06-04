@@ -27,7 +27,13 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 Passport::routes();
 //Obligatorio para definir el alcance
-Passport::tokensCan(['administrador'=>'Descripción permisos administrador','vendedor'=>'Descripción permisos vendedor','cliente'=>'Descripción permisos cliente',]);Passport::setDefaultScope(['cliente']);
+
+Passport::tokensCan([
+'administrador'=>'Descripción permisos administrador',
+'encargado'=>'Descripción permisos encargado'
+]);
+
+Passport::setDefaultScope(['encargado']);
 //
     }
 }

@@ -25,10 +25,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('foto', 2000);
             $table->rememberToken();
-            $table->unsignedInteger('perfil_id');
+            $table->unsignedInteger('profile_id');
             $table->timestamps();
 
-            $table->foreign('perfil_id')->references('id')->on('profiles');
+            $table->foreign('profile_id')->references('id')->on('profiles');
         });
     }
 
@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function(Blueprint $table){
-            $table->dropForeign('users_perfil_id_foreign');
+            $table->dropForeign('users_profile_id_foreign');
         });
         Schema::dropIfExists('users');
     }

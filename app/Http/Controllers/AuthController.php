@@ -12,40 +12,45 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+
+public function register(Request $request)
     {
         //Reglas de validación
-        $validator=Validator::make($request->all(),['name'=>'required|string|max:255',
-        'email'=>'required|string|email|max:255|unique:users','password'=>'required|string|min:6',
-        'rol_id'=>'required',
+        $validator=Validator::make($request->all(),[
+            'name'=>'required|string|max:255',
+            'email'=>'required|string|email|max:255|unique:users',
+            'password'=>'required|string|min:6',
+             'profile_id'=>'required',
         ]);
 
         //Retornar mensajes de validación
         if($validator->fails()){
-            returnresponse()->json($validator->messages(),422);
+            return response()->json($validator->messages(),422);
         }
         try
         {
             //Formato de password
-            $request['password']=Hash::make($request['password']);$request['remember_token']=Str::random(10);
-            //Agregar rol_id en Model User a la propiedad $fillable
+            $request['password']=Hash::make($request['password']);
+            $request['remember_token']=Str::random(10);
+
+            //Agregar rol_id en Model User a la propiedad $fillable ,  se cambio la llave a profile_id
             $user = User::create($request->toArray());
             //Login usuario creado
             Auth::login($user);
-            $scope=$user->rol->name;
+            $scope=$user->profile_id->descripcion;
             $token=$user->createToken($user->email.'-'.now(),[$scope]);
             //Respuesta con token
             $response=[
                 'user'=>Auth::user(),
                 'token'=>$token->accessToken];
-                return
-                response()->json($response,200);
-        }catch(\Exception $e)
+                return response()->json($response,200);
+        }catch(Exception $e)
         {
             return response()->json($e->getMessage(),422);
         }
     }
-        public function login(Request $request){
+
+public function login(Request $request){
 
 //Validar campos de login
 $validator=Validator::make($request->all(),[
@@ -60,25 +65,25 @@ if($validator->fails()){
 try{
     //Credenciales para el login
     $credentials=$request->only('email','password');
+
     //Verificar credenciales por medio de las funcionalidad de autenticación
+
+    // aqui se cambio el el campo PROFILES  y PROFILES_ID EN LA VARIABLE SCOPE.
     if(Auth::attempt($credentials)){
-        $user=User::where('email',$request->email)->with('rol')->first();
-        $scope=$user->rol->name;
+        $user=User::where('email',$request->email)->with('Perfil')->first();
+        $scope=$user->profile_id->descripcion;
         $token=$user->createToken($user->email.'-'.now(),[$scope]);
         $response=[
             'user'=>Auth::user(),
             'token'=>$token->accessToken
         ];
-        return
-        response()->json($response,200);
+        return response()->json($response,200);
     }else{
         $response=["message"=>'El usuario no existe'];
-        return
-        response()->json($response,422);
+        return response()->json($response,422);
     }
-    }catch(\Exception$e){
-        return
-        response()->json($e->getMessage(),422);
+    }catch(Exception $e){
+        return  response()->json($e->getMessage(),422);
     }
 }
 public function logout()
@@ -86,8 +91,10 @@ public function logout()
             //Verificar que exista algún usuario logueado//Según el token proporcionado
             if(Auth::guard('api')->check()){
                 Auth::logout();
-                $response=['message'=>'Ha sido desconectado exitosamente!'];return response()->json($response,200);
+                $response=['message'=>'Ha sido desconectado exitosamente!'];
+                return response()->json($response,200);
             }else{
-                $response=['message'=>'No existe usuario autenticado'];return response()->json($response,422);}
+                $response=['message'=>'No existe usuario autenticado'];
+                return response()->json($response,422);}
         }
     }
