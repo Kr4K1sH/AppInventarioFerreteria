@@ -48,8 +48,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'user'
         ], function ($router) {
-            Route::get('', [UserController::class, 'index'])
-                ->middleware(['auth:api']);
+            Route::get('', [UserController::class, 'index'])->middleware(['auth:api', 'scopes:administrador']);
             Route::get('/{id}', [UserController::class, 'showEnable']);
         });
 
@@ -120,6 +119,8 @@ Route::group(['prefix' => 'v1'], function () {
         //inventory
         Route::get('', [InventoryController::class, 'index']);
         Route::get('/{id}', [InventoryController::class, 'show']);
+
+
     }); //end group inventory
 
 });//end group v1

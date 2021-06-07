@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $user = User::where('estado', true)->with('Perfil')->orderBy('identificacion', 'asc')->get();
+            $user =User::where('estado', true)->with('Perfil')->orderBy('identificacion', 'asc')->get();
             $response = $user;
             return response()->json($response, 200);
 

@@ -15,12 +15,20 @@ class AuthController extends Controller
 
 public function register(Request $request)
     {
+
+        /// notas
+        // Siempre hay que correr estos comandos antes de tratar de ejecutar las rutas de validacion con POSTMAN:
+        // 1- php artisan passport:install --force
+        // 2- php artisan passport:keys --force
+        // 3- intentar correr los api requests con POSTMAN.
+
         //Reglas de validación
         $validator=Validator::make($request->all(),[
             'name'=>'required|string|max:255',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:6',
-             'profile_id'=>'required',
+            'profile_id'=>'required',
+
         ]);
 
         //Retornar mensajes de validación
@@ -37,8 +45,8 @@ public function register(Request $request)
             $user = User::create($request->toArray());
             //Login usuario creado
             Auth::login($user);
-            $scope=$user->profile_id->descripcion;
-            $token=$user->createToken($user->email.'-'.now(),[$scope]);
+            $scope = $user->perfil_id; // se removio la variable descripcion xq esta dando errores y solo necesitamos el ID del perfil que estamos ingresando.
+            $token = $user->createToken($user->email.'-'.now(),[$scope]);
             //Respuesta con token
             $response=[
                 'user'=>Auth::user(),
@@ -68,10 +76,10 @@ try{
 
     //Verificar credenciales por medio de las funcionalidad de autenticación
 
-    // aqui se cambio el el campo PROFILES  y PROFILES_ID EN LA VARIABLE SCOPE.
+    // aqui se cambio el campo PROFILES por perfil  y PROFILES_ID EN LA VARIABLE SCOPE.
     if(Auth::attempt($credentials)){
-        $user=User::where('email',$request->email)->with('Perfil')->first();
-        $scope=$user->profile_id->descripcion;
+        $user=User::where('email',$request->email)->with('perfil')->first();
+        $scope=$user->Perfil; //se cambia a la variable perfil para llamar a todo el perfil
         $token=$user->createToken($user->email.'-'.now(),[$scope]);
         $response=[
             'user'=>Auth::user(),

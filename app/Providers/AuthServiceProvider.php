@@ -25,15 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-Passport::routes();
-//Obligatorio para definir el alcance
+        Passport::routes();
+        //Obligatorio para definir el alcance
 
-Passport::tokensCan([
-'administrador'=>'Descripción permisos administrador',
-'encargado'=>'Descripción permisos encargado'
-]);
+        Passport::tokensCan([
+            'administrador' => 'Descripción permisos administrador',
+            'encargado' => 'Descripción permisos encargado'
+        ]);
 
-Passport::setDefaultScope(['encargado']);
-//
+        Passport::setDefaultScope(['encargado']);
     }
 }
