@@ -47,8 +47,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'user'
         ], function ($router) {
-            Route::get('', [UserController::class, 'index'])
-                ->middleware(['auth:api']);
+            Route::get('', [UserController::class, 'index'])->middleware(['auth:api', 'scopes:administrador']);
             Route::get('/{id}', [UserController::class, 'showEnable']);
         });
 
@@ -120,15 +119,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('', [InventoryController::class, 'index']);
         Route::get('/{id}', [InventoryController::class, 'show']);
 
-        //agregando las rutas para acciones de identificacion segun la documentacion
-        //Rutasauth
-        Route::group([
-            'prefix' => 'auth'
-        ], function ($router) {
-            Route::post('login', [AuthController::class, 'login']);
-            Route::post('register', [AuthController::class, 'register']);
-            Route::post('logout', [AuthController::class, 'logout']);
-        });
+
     }); //end group inventory
 
 });//end group v1

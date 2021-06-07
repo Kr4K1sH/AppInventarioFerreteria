@@ -10,7 +10,7 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasApiTokens,HasFactory, Notifiable;
 
 
     /**
@@ -19,10 +19,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'identificacion',
         'name',
+        'primerApellido',
+        'segundoApellido',
+        'estado',
         'email',
         'password',
-        'profile_id'
+        'foto',
+        'profile_id',
+// se agregan los campos que faltan de usuarios para ser registrados
     ];
 
     /**
