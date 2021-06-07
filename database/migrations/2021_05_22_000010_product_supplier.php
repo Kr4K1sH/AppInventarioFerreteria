@@ -14,9 +14,9 @@ class ProductSupplier extends Migration
     public function up()
     {
         Schema::create('product_supplier', function(Blueprint $table){
+            $table->increments('id');
             $table->unsignedInteger('supplier_id');
             $table->unsignedInteger('product_id');
-
             $table->timestamps();
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->foreign('product_id')->references('id')->on('products');

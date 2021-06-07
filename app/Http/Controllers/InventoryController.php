@@ -19,7 +19,6 @@ class InventoryController extends Controller
             $user = Inventory::with(['Movement', 'User', 'Products'])->orderBy('fecha', 'asc')->get();
             $response = $user;
             return response()->json($response, 200);
-
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
@@ -58,7 +57,6 @@ class InventoryController extends Controller
             $user = Inventory::where('id', $id)->with(['Movement', 'User', 'Products'])->orderBy('fecha', 'asc')->first();
             $response = $user;
             return response()->json($response, 200);
-
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }

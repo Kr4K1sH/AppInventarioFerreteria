@@ -12,6 +12,7 @@ class Location extends Model
     public function Products()
     {
         return $this->belongsToMany('App\Models\Product')->withPivot('cantidad')->withTimestamps();
-
     }
+
+    
 }

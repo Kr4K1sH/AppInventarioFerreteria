@@ -21,7 +21,9 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([1]);
-        $supplier->Products()->attach([2]);
+        $supplier->Products()->attach([
+            2 => ['id' => '1']
+        ]);
 
         // 2 Empresa herramientas de contruccion todo tipo
         $supplier = new \App\Models\Supplier();
@@ -32,7 +34,9 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([2]);
-        $supplier->Products()->attach([1]);
+        $supplier->Products()->attach([
+            1 => ['id' => '2']
+        ]);
 
         // 3 heramientas de contruccion de todo tipo
         $supplier = new \App\Models\Supplier();
@@ -43,7 +47,9 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([3]);
-        $supplier->Products()->attach([1]);
+        $supplier->Products()->attach([
+            1 => ['id' => '3']
+        ]);
 
 
         //4 empresa para jardineria
@@ -55,7 +61,9 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([4]);
-        $supplier->Products()->attach([4]);
+        $supplier->Products()->attach([
+            4 => ['id' => '4']
+        ]);
 
 
         //5 empresa para el hogar cosas de higiene
@@ -67,7 +75,9 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([5]);
-        $supplier->Products()->attach([3]);
+        $supplier->Products()->attach([
+            3 => ['id' => '5']
+        ]);
 
         //6 empresa fontaneria
         $supplier = new \App\Models\Supplier();
@@ -78,7 +88,9 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([6]);
-        $supplier->Products()->attach([5]);
+        $supplier->Products()->attach([
+            5 => ['id' => '6']
+        ]);
 
         //7 empresa Pintura
         $supplier = new \App\Models\Supplier();
@@ -88,6 +100,8 @@ class suppliersseeder extends Seeder
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([7]);
-        $supplier->Products()->attach([6]);
+        $supplier->Products()->attach([
+            6 => ['id' => '7']
+        ]);
     }
 }

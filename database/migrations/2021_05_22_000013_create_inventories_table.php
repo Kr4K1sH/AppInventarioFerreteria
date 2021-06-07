@@ -19,7 +19,6 @@ class CreateInventoriesTable extends Migration
             $table->string('description');
             $table->date('fecha');
             $table->unsignedInteger('user_id');
-            $table->integer('cantidad');
             $table->timestamps();
 
             $table->foreign('movement_id')->references('id')->on('movements');

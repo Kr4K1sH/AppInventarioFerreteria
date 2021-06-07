@@ -14,6 +14,7 @@ class LocationProduct extends Migration
     public function up()
     {
         Schema::create('location_product', function(Blueprint $table){
+            $table->increments('id');
             $table->unsignedInteger('location_id');
             $table->unsignedInteger('product_id');
             $table->integer('cantidad');

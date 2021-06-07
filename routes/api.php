@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\InventoryProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -119,16 +120,6 @@ Route::group(['prefix' => 'v1'], function () {
         //inventory
         Route::get('', [InventoryController::class, 'index']);
         Route::get('/{id}', [InventoryController::class, 'show']);
-
-        //agregando las rutas para acciones de identificacion segun la documentacion
-        //Rutasauth
-        Route::group([
-            'prefix' => 'auth'
-        ], function ($router) {
-            Route::post('login', [AuthController::class, 'login']);
-            Route::post('register', [AuthController::class, 'register']);
-            Route::post('logout', [AuthController::class, 'logout']);
-        });
     }); //end group inventory
 
 });//end group v1
