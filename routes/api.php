@@ -41,23 +41,23 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'profile'
         ], function ($router) {
-            Route::get('', [ProfileController::class, 'index']);
+            Route::get('', [ProfileController::class, 'index'])->middleware(['auth:api']);
         });
 
         //users
         Route::group([
             'prefix' => 'user'
         ], function ($router) {
-            Route::get('', [UserController::class, 'index'])->middleware(['auth:api', 'scopes:administrador']);
-            Route::get('/{id}', [UserController::class, 'showEnable']);
+            Route::get('', [UserController::class, 'index'])->middleware(['auth:api', 'scopes:administrador, encargado']);
+            Route::get('/{id}', [UserController::class, 'showEnable'])->middleware(['auth:api']);
         });
 
         //category
         Route::group([
             'prefix' => 'category'
         ], function ($router) {
-            Route::get('', [CategoryController::class, 'index']);
-            Route::get('/{id}', [CategoryController::class, 'show']);
+            Route::get('', [CategoryController::class, 'index'])->middleware(['auth:api']);
+            Route::get('/{id}', [CategoryController::class, 'show'])->middleware(['auth:api']);
         });
 
         //contact
@@ -72,55 +72,53 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'display'
         ], function ($router) {
-            Route::get('', [DisplayController::class, 'index']);
-            Route::get('/{id}', [DisplayController::class, 'show']);
+            Route::get('', [DisplayController::class, 'index'])->middleware(['auth:api']);
+            Route::get('/{id}', [DisplayController::class, 'show'])->middleware(['auth:api']);
         });
 
         //location
         Route::group([
             'prefix' => 'location'
         ], function ($router) {
-            Route::get('', [LocationController::class, 'index']);
-            Route::get('/{id}', [LocationController::class, 'show']);
+            Route::get('', [LocationController::class, 'index'])->middleware(['auth:api']);
+            Route::get('/{id}', [LocationController::class, 'show'])->middleware(['auth:api']);
         });
 
         //movementtype
         Route::group([
             'prefix' => 'movementtype'
         ], function ($router) {
-            Route::get('', [MovementtypesController::class, 'index']);
-            Route::get('/{id}', [MovementtypesController::class, 'show']);
+            Route::get('', [MovementtypesController::class, 'index'])->middleware(['auth:api']);
+            Route::get('/{id}', [MovementtypesController::class, 'show'])->middleware(['auth:api']);
         });
 
         //movement
         Route::group([
             'prefix' => 'movement'
         ], function ($router) {
-            Route::get('', [MovementController::class, 'index']);
-            Route::get('/{id}', [MovementController::class, 'show']);
+            Route::get('', [MovementController::class, 'index'])->middleware(['auth:api']);
+            Route::get('/{id}', [MovementController::class, 'show'])->middleware(['auth:api']);
         });
 
         //supplier
         Route::group([
             'prefix' => 'supplier'
         ], function ($router) {
-            Route::get('', [SupplierController::class, 'index']);
-            Route::get('/{id}', [SupplierController::class, 'show']);
+            Route::get('', [SupplierController::class, 'index'])->middleware(['auth:api']);
+            Route::get('/{id}', [SupplierController::class, 'show'])->middleware(['auth:api']);
         });
 
         //product
         Route::group([
             'prefix' => 'product'
         ], function ($router) {
-            Route::get('', [ProductController::class, 'index']);
+            Route::get('', [ProductController::class, 'index'])->middleware(['auth:api']);
             Route::get('/{id}', [ProductController::class, 'showEnable']);
         });
 
         //inventory
-        Route::get('', [InventoryController::class, 'index']);
-        Route::get('/{id}', [InventoryController::class, 'show']);
-
-
+        Route::get('', [InventoryController::class, 'index'])->middleware(['auth:api']);
+        Route::get('/{id}', [InventoryController::class, 'show'])->middleware(['auth:api']);
     }); //end group inventory
 
 });//end group v1
