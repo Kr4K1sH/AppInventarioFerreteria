@@ -45,19 +45,19 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         //users
-        Route::group([
+        /*Route::group([
             'prefix' => 'user'
         ], function ($router) {
             Route::get('', [UserController::class, 'index'])->middleware(['auth:api', 'scopes:administrador, encargado']);
             Route::get('/{id}', [UserController::class, 'showEnable'])->middleware(['auth:api']);
-        });
+        });*/
 
         //category
         Route::group([
             'prefix' => 'category'
         ], function ($router) {
-            Route::get('', [CategoryController::class, 'index'])->middleware(['auth:api']);
-            Route::get('/{id}', [CategoryController::class, 'show'])->middleware(['auth:api']);
+            Route::get('', [CategoryController::class, 'index']);
+            Route::get('/{id}', [CategoryController::class, 'show']);
         });
 
         //contact
@@ -72,8 +72,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'display'
         ], function ($router) {
-            Route::get('', [DisplayController::class, 'index'])->middleware(['auth:api']);
-            Route::get('/{id}', [DisplayController::class, 'show'])->middleware(['auth:api']);
+            Route::get('', [DisplayController::class, 'index']);
+            Route::get('/{id}', [DisplayController::class, 'show']);
         });
 
         //location
@@ -88,8 +88,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'movementtype'
         ], function ($router) {
-            Route::get('', [MovementtypesController::class, 'index'])->middleware(['auth:api']);
-            Route::get('/{id}', [MovementtypesController::class, 'show'])->middleware(['auth:api']);
+            Route::get('', [MovementtypesController::class, 'index']);
+            Route::get('/{id}', [MovementtypesController::class, 'show']);
         });
 
         //movement
@@ -113,6 +113,10 @@ Route::group(['prefix' => 'v1'], function () {
             'prefix' => 'product'
         ], function ($router) {
             Route::get('', [ProductController::class, 'index'])->middleware(['auth:api']);
+            Route::post('', [ProductController::class, 'create'])->middleware(['auth:api', 'scopes:administrador']);
+            Route::get('all', [ProductController::class, 'all']);
+            Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api', 'scopes:administrador']);
+
             Route::get('/{id}', [ProductController::class, 'showEnable']);
         });
 

@@ -12,7 +12,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            $user =User::where('estado', true)->with('Perfil')->orderBy('identificacion', 'asc')->get();
+            $user =User::where('estado', true)->with('Perfil')->orderBy('name', 'asc')->get();
             $response = $user;
             return response()->json($response, 200);
 
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function allDisable()
     {
         try {
-            $user = User::where('estado', false)->with('Perfil')->orderBy('identificacion', 'asc')->get();
+            $user = User::where('estado', false)->with('Perfil')->orderBy('name', 'asc')->get();
             $response = $user;
             return response()->json($response, 200);
 
