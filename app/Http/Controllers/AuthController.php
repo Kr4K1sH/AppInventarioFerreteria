@@ -24,12 +24,17 @@ public function register(Request $request)
 
         //Reglas de validación
         $validator=Validator::make($request->all(),[
-            'name'=>'required|string|max:255',
-            'email'=>'required|string|email|max:255|unique:users',
-            'password'=>'required|string|min:6',
-            'profile_id'=>'required',
+            'identificacion' => 'required|int',
+            'name' => 'required|string|max:255',
+            'primerApellido' => 'required|string|max:100',
+            'segundoApellido' => 'required|string|max:100',
+            'segundoApellido' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
+            'foto' => 'required',
+            'profile_id' => 'required',
 
-        ]);
+        ]);// added all the fields to register and validate the user registration
 
         //Retornar mensajes de validación
         if($validator->fails()){
