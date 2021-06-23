@@ -104,25 +104,26 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'supplier'
         ], function ($router) {
-            Route::get('', [SupplierController::class, 'index'])->middleware(['auth:api']);
-            Route::get('/{id}', [SupplierController::class, 'show'])->middleware(['auth:api']);
+        Route::get('', [SupplierController::class, 'index'])/*->middleware(['auth:api'])*/;
+            Route::get('/{id}', [SupplierController::class, 'show'])/*->middleware(['auth:api'])*/;
         });
 
         //product
         Route::group([
             'prefix' => 'product'
         ], function ($router) {
-            Route::get('', [ProductController::class, 'index'])->middleware(['auth:api']);
+            Route::get('', [ProductController::class, 'index'])/*->middleware(['auth:api'])*/;
             Route::post('', [ProductController::class, 'create'])->middleware(['auth:api', 'scopes:administrador']);
             Route::get('all', [ProductController::class, 'all']);
             Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api', 'scopes:administrador']);
-
-            Route::get('/{id}', [ProductController::class, 'showEnable']);
+            Route::get('/{id}', [ProductController::class, 'show']);
         });
 
         //inventory
-        Route::get('', [InventoryController::class, 'index'])->middleware(['auth:api']);
-        Route::get('/{id}', [InventoryController::class, 'show'])->middleware(['auth:api']);
+        Route::get('', [InventoryController::class, 'index'])/*->middleware(['auth:api'])*/;
+        Route::get('entradas', [InventoryController::class, 'entradas'])/*->middleware(['auth:api'])*/;
+        Route::get('salidas', [InventoryController::class, 'salidas'])/*->middleware(['auth:api'])*/;
+        Route::get('/{id}', [InventoryController::class, 'show'])/*->middleware(['auth:api'])*/;
     }); //end group inventory
 
 });//end group v1

@@ -24,6 +24,28 @@ class InventoryController extends Controller
         }
     }
 
+    public function entradas()
+    {
+        try {
+            $user = Inventory::with(['Movement', 'User', 'Products'])->where('movement_id', '1')->orderBy('fecha', 'asc')->get();
+            $response = $user;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function salidas()
+    {
+        try {
+            $user = Inventory::with(['Movement', 'User', 'Products'])->where('movement_id', '2')->orderBy('fecha', 'asc')->get();
+            $response = $user;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

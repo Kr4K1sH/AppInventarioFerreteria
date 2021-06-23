@@ -16,25 +16,25 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            $display = Product::with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
-                        ->orderBy('nombre', 'asc')->get();
+            $display = Product::with(['Category', 'Display', 'User', 'Locations', 'Suppliers', 'Inventories'])
+                ->where('cantidad_total', '>', 'cantidad_minima')
+                ->orderBy('nombre', 'asc')->get();
             $response = $display;
             return response()->json($response, 200);
-
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
     }
 
-    public function allEnable()
+    public function all()
     {
         try {
             $display = Product::where('estado', true)
-            ->with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
-                        ->orderBy('nombre', 'asc')->get();
+                ->with(['Category', 'Display', 'User', 'Locations', 'Suppliers', 'Inventories'])
+                ->where('cantidad_total', '>', 'cantidad_minima')
+                ->orderBy('nombre', 'asc')->get();
             $response = $display;
             return response()->json($response, 200);
-
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
@@ -67,15 +67,15 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $id
      * @return \Illuminate\Http\Response
      */
-    public function showEnable($id)
+    public function show($id)
     {
         try {
-            $display = Product::where('id', $id)->where('estado', true)
-                        ->with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
-                        ->orderBy('nombre', 'asc')->first();
+            $display = Product::where('id', $id)
+                ->with(['Category', 'Display', 'User', 'Locations', 'Suppliers', 'Inventories'])
+                ->where('cantidad_total', '>', 'cantidad_minima')
+                ->orderBy('nombre', 'asc')->first();
             $response = $display;
             return response()->json($response, 200);
-
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
@@ -85,11 +85,11 @@ class ProductController extends Controller
     {
         try {
             $display = Product::where('id', $id)->where('estado', false)
-                        ->with(['Category','Display','User', 'Locations', 'Suppliers', 'Inventories'])
-                        ->orderBy('nombre', 'asc')->first();
+                ->with(['Category', 'Display', 'User', 'Locations', 'Suppliers', 'Inventories'])
+                ->where('cantidad_total', '>', 'cantidad_minima')
+                ->orderBy('nombre', 'asc')->first();
             $response = $display;
             return response()->json($response, 200);
-
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
         }
@@ -101,7 +101,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit( $product)
+    public function edit($product)
     {
         //
     }
