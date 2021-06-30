@@ -25,7 +25,7 @@ class userseeder extends Seeder
         'password' => bcrypt('123456'),//bcrypt('123456'),
          // $user->getRememberToken();
         // $user->email_verified_at='';
-        'foto'=>'https://www.google.com/imgres?imgurl=https%3A%2F%2Fsupport.microsoft.com%2Fsocimages%2Fappicons%2Fmicrosoft365.64x64.svg&imgrefurl=https%3A%2F%2Fsupport.microsoft.com%2Fes-hn&tbnid=ZkNm1y4fAlAt2M&vet=12ahUKEwjJxsHG-ePwAhVBRVMKHb5GCAUQMygBegUIARDSAQ..i&docid=_RSD-ia5xTOcZM&w=800&h=800&itg=1&q=microsoft&client=firefox-b-d&ved=2ahUKEwjJxsHG-ePwAhVBRVMKHb5GCAUQMygBegUIARDSAQ',
+        'foto'=> 'https://firebasestorage.googleapis.com/v0/b/appferreteria-b40f5.appspot.com/o/imagenesUsuarios%2Fjosue.jpg?alt=media&token=6f03574c-27d3-4f3b-bedb-1a4cef4fab6b',
        'profile_id' =>'1'
 ]);
         $user->save();
@@ -42,7 +42,7 @@ class userseeder extends Seeder
             'password'=> bcrypt('123456'),//bcrypt('123456'),
             //$user->getRememberToken(),
         // $user->email_verified_at='';
-            'foto' => 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fsupport.microsoft.com%2Fsocimages%2Fappicons%2Fmicrosoft365.64x64.svg&imgrefurl=https%3A%2F%2Fsupport.microsoft.com%2Fes-hn&tbnid=ZkNm1y4fAlAt2M&vet=12ahUKEwjJxsHG-ePwAhVBRVMKHb5GCAUQMygBegUIARDSAQ..i&docid=_RSD-ia5xTOcZM&w=800&h=800&itg=1&q=microsoft&client=firefox-b-d&ved=2ahUKEwjJxsHG-ePwAhVBRVMKHb5GCAUQMygBegUIARDSAQ',
+            'foto' => 'https://firebasestorage.googleapis.com/v0/b/appferreteria-b40f5.appspot.com/o/imagenesUsuarios%2Fbryan.jpg?alt=media&token=3645970b-c8e6-43bd-9fe8-08998072f08f',
             'profile_id' => '1'
         ]);
         $user->save();

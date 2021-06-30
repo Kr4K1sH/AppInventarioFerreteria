@@ -30,7 +30,8 @@ class productseeder extends Seeder
         $products->display_id = '2';
         $products->user_id = '1';
         $products->peso = '40';
-        $products->color = 'blanco';
+        $products->estado = true;
+        $products->color = 'Blanco';
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/3/0/3027010_211.jpg';
 
         $products->save();
@@ -48,6 +49,7 @@ class productseeder extends Seeder
         $products->display_id = '1';
         $products->user_id = '1';
         $products->peso = '10';
+        $products->estado = true;
         $products->color = 'blanco';
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/f0b46f36c41ddcfe5166fd88e24e9484/1/5/1535052.jpg';
 
@@ -65,6 +67,7 @@ class productseeder extends Seeder
         $products->category_id = '4';
         $products->display_id = '1';
         $products->user_id = '1';
+        $products->estado = true;
         $products->peso = '1';
         $products->color = 'Beige';
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/2/2/2246018_7.jpg';
@@ -83,6 +86,7 @@ class productseeder extends Seeder
         $products->category_id = '6';
         $products->display_id = '1';
         $products->user_id = '1';
+        $products->estado = true;
         $products->peso = '3.7';
         $products->color = 'Café';
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/0/8/0823046_21.jpg';
@@ -101,6 +105,7 @@ class productseeder extends Seeder
         $products->category_id = '8';
         $products->display_id = '1';
         $products->user_id = '1';
+        $products->estado = true;
         $products->peso = '4.5';
         $products->color = 'Gris';
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/1/2/1270034_7.jpg';
@@ -114,7 +119,7 @@ class productseeder extends Seeder
         $products->descripcion = 'Pintura Seal Coat satín blanco 5 gal. Seal-Coat 3 en 1 es ideal para usar en superficies expuestas a la intemperie que necesitan flexibilidad. Es capaz de sellar grietas sobre estuco, cemento, mampostería y ladrillo...';
         $products->cantidad_maxima = '50';
         $products->cantidad_minima = '10';
-        $products->cantidad_total = '35';
+        $products->cantidad_total = '9';
         $products->costo_unidad = '87950';
         $products->category_id = '7';
         $products->display_id = '1';

@@ -46,6 +46,32 @@ class InventoryController extends Controller
         }
     }
 
+    public function totalEntrada()
+    {
+        try {
+
+            $display = Inventory::where('movement_id', 1)->count();
+
+            $response = $display;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function totalSalida()
+    {
+        try {
+
+            $display = Inventory::where('movement_id', 2)->count();
+
+            $response = $display;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

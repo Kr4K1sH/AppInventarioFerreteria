@@ -45,12 +45,13 @@ Route::group(['prefix' => 'v1'], function () {
         });
 
         //users
-        /*Route::group([
+        Route::group([
             'prefix' => 'user'
         ], function ($router) {
-            Route::get('', [UserController::class, 'index'])->middleware(['auth:api', 'scopes:administrador, encargado']);
-            Route::get('/{id}', [UserController::class, 'showEnable'])->middleware(['auth:api']);
-        });*/
+            Route::get('', [UserController::class, 'index']);
+            Route::get('allDisable', [UserController::class, 'allDisable']);
+            Route::get('{/id}', [UserController::class, 'showEnable']);
+        });
 
         //category
         Route::group([
@@ -104,7 +105,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'supplier'
         ], function ($router) {
-        Route::get('', [SupplierController::class, 'index'])/*->middleware(['auth:api'])*/;
+            Route::get('', [SupplierController::class, 'index'])/*->middleware(['auth:api'])*/;
             Route::get('/{id}', [SupplierController::class, 'show'])/*->middleware(['auth:api'])*/;
         });
 
@@ -115,14 +116,19 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('', [ProductController::class, 'index'])/*->middleware(['auth:api'])*/;
             Route::post('', [ProductController::class, 'create'])->middleware(['auth:api', 'scopes:administrador']);
             Route::get('all', [ProductController::class, 'all']);
+            Route::get('reposicion', [ProductController::class, 'reposicion']);
+            Route::get('total', [ProductController::class, 'total']);
             Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api', 'scopes:administrador']);
             Route::get('/{id}', [ProductController::class, 'show']);
+
         });
 
         //inventory
         Route::get('', [InventoryController::class, 'index'])/*->middleware(['auth:api'])*/;
         Route::get('entradas', [InventoryController::class, 'entradas'])/*->middleware(['auth:api'])*/;
         Route::get('salidas', [InventoryController::class, 'salidas'])/*->middleware(['auth:api'])*/;
+        Route::get('totalEntrada', [InventoryController::class, 'totalEntrada']);
+        Route::get('totalSalida', [InventoryController::class, 'totalSalida']);
         Route::get('/{id}', [InventoryController::class, 'show'])/*->middleware(['auth:api'])*/;
     }); //end group inventory
 
