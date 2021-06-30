@@ -14,11 +14,11 @@ class profilesseeder extends Seeder
     public function run()
     {
         $profile = new \App\Models\Profile();
-        $profile->descripcion='administrador';
+        $profile->descripcion='Administrador';
         $profile-> save();
 
         $profile1 = new \App\Models\Profile();
-        $profile1->descripcion = 'encargado';
+        $profile1->descripcion = 'Encargado';
         $profile1->save();
 
     }

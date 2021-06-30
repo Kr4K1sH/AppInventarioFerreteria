@@ -28,7 +28,7 @@ class inventorysseeder extends Seeder
         $inventory->Products()->attach([
             1 => ['cantidad' => '10', 'product_supplier_id' => '3', 'product_location_id' => '1']
         ]);
-        
+
 
         //$inventory->Supplier->product_supplier_id = '3';
         //$inventory->product_location_id = '1';
@@ -36,7 +36,7 @@ class inventorysseeder extends Seeder
         //2
         $inventory = new \App\Models\Inventory();
         $inventory->movement_id = '2';
-        $inventory->description = 'traspaso de materiales en mal estado barras led general electric';
+        $inventory->description = 'Traspaso de materiales en mal estado barras led general electric';
         $inventory->fecha = Carbon::today();
         $inventory->user_id = '1';
 
@@ -52,7 +52,7 @@ class inventorysseeder extends Seeder
         //3
         $inventory = new \App\Models\Inventory();
         $inventory->movement_id = '1';
-        $inventory->description = 'Devolucion de ceramica en mal estado rota 2 cajas';
+        $inventory->description = 'DevoluciÓn de ceramica en mal estado rota 2 cajas';
         $inventory->fecha = Carbon::today();
         $inventory->user_id = '1';
 
@@ -69,7 +69,7 @@ class inventorysseeder extends Seeder
         //4
         $inventory = new \App\Models\Inventory();
         $inventory->movement_id = '2';
-        $inventory->description = 'devolucion de costales de abono rotos a proveedor';
+        $inventory->description = 'Devolución de costales de abono rotos a proveedor';
         $inventory->fecha = Carbon::today();
         $inventory->user_id = '1';
 

@@ -16,11 +16,11 @@ class movementtypesseeders extends Seeder
     {
 
         $movements = new \App\Models\Movementtypes();
-        $movements->nombre= 'entrada';
+        $movements->nombre= 'Entrada';
          $movements->save();
 
         $movements = new \App\Models\Movementtypes();
-        $movements->nombre = 'salida';
+        $movements->nombre = 'Salida';
         $movements->save();
 
 

@@ -22,32 +22,32 @@ class movementsseeder extends Seeder
 
 //entradas
         $movements = new \App\Models\Movement();
-        $movements->descripcion= 'compra';
-        $movements->movementtype_id = '1';
-
-        $movements->save();
-        
-
-
-        $movements = new \App\Models\Movement();
-        $movements->descripcion = 'devolución';
+        $movements->descripcion= 'Compra';
         $movements->movementtype_id = '1';
 
         $movements->save();
 
+
+
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'entrada por ajuste a inventario';
+        $movements->descripcion = 'Devolución';
+        $movements->movementtype_id = '1';
+
+        $movements->save();
+
+        $movements = new \App\Models\Movement();
+        $movements->descripcion = 'Entrada por ajuste a inventario';
         $movements->movementtype_id='1';
 
         $movements->save();
 
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'entrada por traspaso';
+        $movements->descripcion = 'Entrada por traspaso';
         $movements->movementtype_id = '1';
         $movements->save();
 
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'inventario inicial entre otros';
+        $movements->descripcion = 'Inventario inicial entre otros';
         $movements->movementtype_id = '1';
 
         $movements->save();
@@ -55,28 +55,28 @@ class movementsseeder extends Seeder
 
         //salidas
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'factura';
+        $movements->descripcion = 'Factura';
         $movements->movementtype_id = '2';
 
         $movements->save();
 
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'cancelación de compra';
+        $movements->descripcion = 'Cancelación de compra';
         $movements->movementtype_id = '2';
         $movements->save();
 
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'devolución de compra a proveedor';
+        $movements->descripcion = 'Devolución de compra a proveedor';
         $movements->movementtype_id = 2;
         $movements->save();
 
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'salida por ajuste de inventario';
+        $movements->descripcion = 'Salida por ajuste de inventario';
         $movements->movementtype_id = '2';
         $movements->save();
 
         $movements = new \App\Models\Movement();
-        $movements->descripcion = 'salida por traspaso';
+        $movements->descripcion = 'Salida por traspaso';
         $movements->movementtype_id = '2';
         $movements->save();
 

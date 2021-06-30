@@ -34,7 +34,7 @@ class categoriesseeder extends Seeder
         $categories->save();
 
         $categories = new \App\Models\Category();
-        $categories->nombre = 'Iluminacion';
+        $categories->nombre = 'Iluminación';
         $categories->estado = true;
         $categories->save();
 

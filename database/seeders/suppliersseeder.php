@@ -25,6 +25,7 @@ class suppliersseeder extends Seeder
             2 => ['id' => '1']
         ]);
 
+
         // 2 Empresa herramientas de contruccion todo tipo
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Truper';
