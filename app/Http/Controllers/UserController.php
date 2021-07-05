@@ -6,6 +6,10 @@ use App\Models\Profile;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use phpDocumentor\Reflection\PseudoTypes\True_;
+use Ramsey\Uuid\Type\Decimal;
+
+use function GuzzleHttp\Promise\exception_for;
 
 class UserController extends Controller
 {
@@ -32,7 +36,17 @@ class UserController extends Controller
             return response()->json($e->getMessage(), 422);
         }
     }
+    public function requests()
+    {
 
+        try {
+            $user = User::where('estado', 2)->get();
+            $response = $user;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
     public function showEnable($id)
     {
         try {
@@ -45,15 +59,18 @@ class UserController extends Controller
         }
     }
 
-    public function showDisable($id)
-    {
-        try {
-            $user = User::where('id', $id)->where('estado', false)->with('Perfil')->first();
-            $response = $user;
-            return response()->json($response, 200);
+    // public function showDisable($id)
+    //{
+    //    try {
+    //       $user = User::where('id', $id)->where('estado', false)->with('Perfil')->first();
+    //       $response = $user;
+    //       return response()->json($response, 200);
 
-        } catch (Exception $e) {
-            return response()->json($e->getMessage(), 422);
-        }
-    }
+    //  } catch (Exception $e) {
+    //    return response()->json($e->getMessage(), 422);
+    //  }
+    // }
+
+
+
 }
