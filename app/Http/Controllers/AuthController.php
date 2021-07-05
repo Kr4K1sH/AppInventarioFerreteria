@@ -83,7 +83,18 @@ try{
 
     // aqui se cambio el campo PROFILES por perfil  y PROFILES_ID EN LA VARIABLE SCOPE.
     if(Auth::attempt($credentials)){
+
         $user=User::where('email',$request->email)->with('perfil')->first();
+                if ($user->estado == 2) {
+                    $response = ["message" => 'El usuario no existe'];
+                    return response()->json($response, 422);
+                }else{
+                    if ($user->estado == 0) {
+                        $response = ["message" => 'El usuario esta deshabilitado'];
+                        return response()->json($response, 422);
+                    }
+                }
+
         $scope=$user->Perfil; //se cambia a la variable perfil para llamar a todo el perfil
         $token=$user->createToken($user->email.'-'.now(),[$scope]);
         $response=[
@@ -91,6 +102,7 @@ try{
             'token'=>$token->accessToken
         ];
         return response()->json($response,200);
+
     }else{
         $response=["message"=>'El usuario no existe'];
         return response()->json($response,422);
