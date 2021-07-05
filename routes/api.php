@@ -106,8 +106,8 @@ Route::group(['prefix' => 'v1'], function () {
             'prefix' => 'supplier'
         ], function ($router) {
             Route::get('', [SupplierController::class, 'index'])/*->middleware(['auth:api'])*/;
-            Route::get('/{id}', [SupplierController::class, 'show'])/*->middleware(['auth:api'])*/;
             Route::post('store', [SupplierController::class, 'store']);
+            Route::get('/{id}', [SupplierController::class, 'show'])/*->middleware(['auth:api'])*/;
             Route::patch('/{id}', [SupplierController::class, 'update']);
         });
 
@@ -122,7 +122,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('total', [ProductController::class, 'total']);
             Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api', 'scopes:administrador']);
             Route::get('/{id}', [ProductController::class, 'show']);
-
         });
 
         //inventory
