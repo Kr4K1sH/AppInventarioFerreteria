@@ -50,7 +50,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function Perfil()//un usuario pertenece a un perfil
+    public function Profile()//un usuario pertenece a un perfil
     {
         return $this->belongsTo('App\Models\Profile');
     }

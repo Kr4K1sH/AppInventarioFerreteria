@@ -35,13 +35,14 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('login', [AuthController::class, 'login']);
             Route::post('register', [AuthController::class, 'register']);
             Route::post('logout', [AuthController::class, 'logout']);
+            Route::patch('update/{id}', [AuthController::class, 'Update']);
         });
 
         //profiles
         Route::group([
             'prefix' => 'profile'
         ], function ($router) {
-            Route::get('', [ProfileController::class, 'index'])->middleware(['auth:api']);
+            Route::get('', [ProfileController::class, 'index']);//->middleware(['auth:api']);
         });
 
         //users
@@ -50,7 +51,7 @@ Route::group(['prefix' => 'v1'], function () {
         ], function ($router) {
             Route::get('', [UserController::class, 'index']);
             Route::get('allDisable', [UserController::class, 'allDisable']);
-             Route::get('requests', [UserController::class, 'requests']);
+            Route::get('requests', [UserController::class, 'requests']);
             Route::get('/{id}', [UserController::class, 'showEnable']);
 
         });
