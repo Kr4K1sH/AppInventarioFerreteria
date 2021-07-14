@@ -108,7 +108,7 @@ Route::group(['prefix' => 'v1'], function () {
             'prefix' => 'supplier'
         ], function ($router) {
             Route::get('', [SupplierController::class, 'index'])/*->middleware(['auth:api'])*/;
-            Route::post('store', [SupplierController::class, 'store']);
+            Route::post('', [SupplierController::class, 'store']);
             Route::get('/{id}', [SupplierController::class, 'show'])/*->middleware(['auth:api'])*/;
             Route::patch('/{id}', [SupplierController::class, 'update']);
         });
