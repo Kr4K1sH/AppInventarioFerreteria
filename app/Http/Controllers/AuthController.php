@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Http\Request;
 //Agregar
@@ -28,7 +29,7 @@ public function register(Request $request)
             'name' => 'required|string|max:255',
             'primerApellido' => 'required|string|max:100',
             'segundoApellido' => 'required|string|max:100',
-            'segundoApellido' => 'required',
+            'estado' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
             'foto' => 'required',
@@ -84,8 +85,8 @@ try{
     // aqui se cambio el campo PROFILES por perfil  y PROFILES_ID EN LA VARIABLE SCOPE.
     if(Auth::attempt($credentials)){
 
-        $user=User::where('email',$request->email)->with('perfil')->first();
-                if ($user->estado == 2) {
+        $user=User::where('email',$request->email)->with('Profile')->first();
+                if ($user->estado != 1) {
                     $response = ["message" => 'El usuario no existe'];
                     return response()->json($response, 422);
                 }else{
@@ -122,4 +123,53 @@ public function logout()
                 $response=['message'=>'No existe usuario autenticado'];
                 return response()->json($response,422);}
         }
+
+    public function Update(Request $request, $id)
+    { //falta revizar xq no puedo logearme despues de hacer un update.
+
+        $validator = Validator::make($request->all(), [
+            'identificacion' => 'required|int',
+            'name' => 'required|string',
+            'primerApellido' => 'required|string',
+            'segundoApellido' => 'required|string',
+            'estado' => 'required',
+            'email' => 'required|string|email|max:255',
+            'password' => 'required|string|min:6',
+            'foto' => 'required',
+            'profile_id' => 'required',
+        ]);
+        //retornar mensajes de validacion
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        //datos del usuario
+        $usr = User::find($id);
+        $usr->identificacion = $request->input('identificacion');
+        $usr->name = $request->input('name');
+        $usr->primerApellido = $request->input('primerApellido');
+        $usr->segundoApellido = $request->input('segundoApellido');
+        $usr->estado = $request->input('estado');
+        $usr->email = $request->input('email');
+        $usr->password = bcrypt($request->input('password'));
+        $usr->foto = $request->input('foto');
+        //validar que el usuario exista
+        // $user = auth('api')->user();
+        // $user->id = $usr->id;
+        if ($usr->Update()) {
+            $profile = Profile::find($request->input('profile_id'));
+            //sincroniza el perfil id
+           if (!is_null($profile)) {
+                $usr->Profile()->associate($profile);
+                //$profile = Profile::find($request->input('profile_id'));
+            }
+            $response = 'Usuario actualizado!';
+            return response()->json($response, 200);
+        }
+        $response = [
+            'msg' => 'Error durante la actualizacion'
+        ];
+        return response()->json($response, 404);
+    }
+
     }
