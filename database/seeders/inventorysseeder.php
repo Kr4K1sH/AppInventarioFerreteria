@@ -26,12 +26,11 @@ class inventorysseeder extends Seeder
         $inventory->save();
 
         $inventory->Products()->attach([
-            1 => ['cantidad' => '10', 'product_supplier_id' => '3', 'product_location_id' => '1']
+            //1 => ['cantidad' => '10', 'product_supplier_id' => '3', 'product_location_id' => '1']
+            1 => ['cantidad' => '10']
         ]);
 
 
-        //$inventory->Supplier->product_supplier_id = '3';
-        //$inventory->product_location_id = '1';
 
         //2
         $inventory = new \App\Models\Inventory();
@@ -43,7 +42,8 @@ class inventorysseeder extends Seeder
         $inventory->save();
 
         $inventory->Products()->attach([
-            2 => ['cantidad' =>'35', 'product_supplier_id' => '7', 'product_location_id' => '2']
+            //2 => ['cantidad' =>'35', 'product_supplier_id' => '7', 'product_location_id' => '2']
+            2 => ['cantidad' => '35']
         ]);
         //$inventory->product_supplier_id = '7';
         //$inventory->product_location_id = '2';
@@ -59,7 +59,8 @@ class inventorysseeder extends Seeder
         $inventory->save();
 
         $inventory->Products()->attach([
-            3 => ['cantidad' =>'2', 'product_supplier_id' => '5', 'product_location_id' => '2']
+            //3 => ['cantidad' =>'2', 'product_supplier_id' => '5', 'product_location_id' => '2']
+            3 => ['cantidad' => '2']
         ]);
         //$inventory->product_supplier_id = '5';
         //$inventory->product_location_id = '2';
@@ -75,7 +76,8 @@ class inventorysseeder extends Seeder
 
         $inventory->save();
         $inventory->Products()->attach([
-            4 => ['cantidad' =>'30', 'product_supplier_id' => '5', 'product_location_id' => '1']
+            //4 => ['cantidad' =>'30', 'product_supplier_id' => '5', 'product_location_id' => '1']
+            4 => ['cantidad' => '30']
         ]);
 
         //$inventory->product_supplier_id = '5';

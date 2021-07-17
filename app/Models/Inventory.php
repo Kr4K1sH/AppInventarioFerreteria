@@ -20,8 +20,9 @@ class Inventory extends Model
     }
     public function Products() // se debde de agregar por su relacion con productos
     {
-        return $this->belongsToMany('App\Models\Product')->withPivot('cantidad', 'product_supplier_id', 'product_location_id')->withTimestamps();
+        /*return $this->belongsToMany('App\Models\Product')->withPivot('cantidad', 'product_supplier_id', 'product_location_id')->withTimestamps();*/
+        return $this->belongsToMany('App\Models\Product')->withPivot('cantidad')->withTimestamps();
     }
 
-    
+
 }
