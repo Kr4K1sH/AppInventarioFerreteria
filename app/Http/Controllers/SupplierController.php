@@ -60,9 +60,9 @@ class SupplierController extends Controller
                     $sp->Contacts()->attach($request->input('contact_id'));
                 }
 
-                if (!is_null($request->input('product_id'))) {
+                /*if (!is_null($request->input('product_id'))) {
                     $sp->Products()->attach($request->input('product_id'));
-                }
+                }*/
                 $response = 'Supplier created';
                 return response()->json($response, 201);
             } else {
@@ -125,9 +125,9 @@ class SupplierController extends Controller
                     $sp->Contacts()->sync($request->input('contact_id'));
                 }
 
-                if (!is_null($request->input('product_id'))) {
+                /*if (!is_null($request->input('product_id'))) {
                     $sp->Products()->sync($request->input('product_id'));
-                }
+                }*/
                 $response = 'Supplier updated';
                 return response()->json($response, 200);
             } else {

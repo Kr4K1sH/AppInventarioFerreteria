@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class ProductController extends Controller
         }
     }
 
-    public function reposicion()//para validar que un producto necesita reposición se asignara el valor false en estado(tomar en consideración al crear o actualizar el producto)
+    public function reposicion() //para validar que un producto necesita reposición se asignara el valor false en estado(tomar en consideración al crear o actualizar el producto)
     {
         try {
 
@@ -71,17 +72,6 @@ class ProductController extends Controller
         }
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -90,7 +80,63 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|min:3',
+            'descripcion' => 'required',
+            'cantidad_maxima' => 'required',
+            'cantidad_minima' => 'required',
+            'cantidad_total' => 'required',
+            'peso' => 'required',
+            'color' => 'required',
+            'imagen' => 'required',
+
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            $producto = new Product();
+            $producto->nombre = $request->input('nombre');
+            $producto->descripcion = $request->input('descripcion');
+            $producto->cantidad_maxima = $request->input('cantidad_maxima');
+            $producto->cantidad_minima = $request->input('cantidad_minima');
+            $producto->cantidad_total = $request->input('cantidad_total');
+            $producto->costo_unidad = $request->input('costo_unidad');
+            $producto->peso = $request->input('peso');
+            $producto->color = $request->input('color');
+            $producto->imagen = $request->input('imagen');
+            $producto->estado = $request->input('estado');
+            $producto->category_id = $request->input('category_id');
+            $producto->display_id = $request->input('display_id');
+            $producto->user_id = $request->input('user_id');
+            $producto->Locations()->cantidad = $request->input('cantidad');
+
+            if ($producto->save()) {
+                if (!is_null($request->input('supplier_id'))) {
+                    $producto->Suppliers()->attach($request->input('supplier_id'));
+                }
+                if (!is_null($request->input('location_id'))) {
+                    $producto->Locations()->attach($request->input('location_id'));
+                }
+                if (!is_null($request->input('location_id'))) {
+                    $producto->Locations()->attach($request->input('cantidad'));
+                }
+
+
+                $response = 'Product created';
+                return response()->json($response, 201);
+            } else {
+                $response = [
+                    'msg' => 'Error to save Product'
+                ];
+                return response()->json($response, 404);
+            }
+        } catch (Exception $ex) {
+            return response()->json($ex->getMessage(), 422);
+        }
     }
 
     /**
@@ -127,16 +173,6 @@ class ProductController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($product)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -145,9 +181,79 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|min:3',
+            'descripcion' => 'required',
+            'cantidad_maxima' => 'required',
+            'cantidad_minima' => 'required',
+            'cantidad_total' => 'required',
+            'peso' => 'required',
+            'color' => 'required',
+            'imagen' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            $producto = Product::find($id);
+            $producto->nombre = $request->input('nombre');
+            $producto->descripcion = $request->input('descripcion');
+            $producto->cantidad_maxima = $request->input('cantidad_maxima');
+            $producto->cantidad_minima = $request->input('cantidad_minima');
+            $producto->cantidad_total = $request->input('cantidad_total');
+            $producto->costo_unidad = $request->input('costo_unidad');
+            $producto->peso = $request->input('peso');
+            $producto->color = $request->input('color');
+            $producto->imagen = $request->input('imagen');
+            $producto->estado = $request->input('estado');
+            $producto->category_id = $request->input('category_id');
+            $producto->display_id = $request->input('display_id');
+            $producto->user_id = $request->input('user_id');
+            $producto->Locations()->cantidad = $request->input('cantidad');
+            //$producto->Inventories()->product_supplier_id = $request->input('product_supplier_id');
+            //$producto->Inventories()->product_location_id = $request->input('product_location_id');
+
+            if ($producto->update()) {
+                if (!is_null($request->input('supplier_id'))) {
+                    $producto->Suppliers()->sync($request->input('supplier_id'));
+                }
+
+                if (!is_null($request->input('location_id'))) {
+                    $producto->Locations()->sync($request->input('location_id'));
+                }
+                if (!is_null($request->input('location_id'))) {
+                    $producto->Locations()->sync($request->input('cantidad'));
+                }
+                /*if (!is_null($request->input('supplier_id'))) {
+                    $producto->Inventories()->
+                    sync([
+                        $producto->$id => ['product_supplier_id' => $request->input('supplier_id'), 'product_location_id' => $request->input('location_id')]
+                    ]);
+                }*/
+                /*if (!is_null($request->input('product_supplier_id'))) {
+                    $producto->Inventories()->sync($request->input('product_supplier_id'));
+                }
+
+                if (!is_null($request->input('product_location_id'))) {
+                    $producto->Inventories()->sync($request->input('product_location_id'));
+                }*/
+
+                $response = 'Product updated';
+                return response()->json($response, 200);
+            } else {
+                $response = [
+                    'msg' => 'Error to update Product'
+                ];
+                return response()->json($response, 404);
+            }
+        } catch (Exception $ex) {
+            return response()->json($ex->getMessage(), 422);
+        }
     }
 
     /**

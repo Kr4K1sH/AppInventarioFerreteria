@@ -43,7 +43,7 @@ class suppliersseeder extends Seeder
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = '3M';
         $supplier->direccion = 'La Asuncion, Heredia';
-        $supplier->pais = 'CRC';
+        $supplier->pais = 'CRI';
 
         $supplier->save();
         #//se agregan relaciones
@@ -57,7 +57,7 @@ class suppliersseeder extends Seeder
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Ever Green';
         $supplier->direccion = 'Rincon Grande de Pavas, frente al final del plantel del ICE, bodega Rincón Grande # 3';
-        $supplier->pais = 'CRC';
+        $supplier->pais = 'CRI';
 
         $supplier->save();
         #//se agregan relaciones
@@ -71,7 +71,7 @@ class suppliersseeder extends Seeder
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'BioTec';
         $supplier->direccion = 'Complejo de bodegas de la antigua fábrica Bayer, bodega #4. Calle Blancos, San José, Costa Rica';
-        $supplier->pais = 'CRC';
+        $supplier->pais = 'CRI';
 
         $supplier->save();
         #//se agregan relaciones
@@ -84,7 +84,7 @@ class suppliersseeder extends Seeder
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Durman';
         $supplier->direccion = 'Zona Franca Pro Park, al costado oeste de la Dos Pinos, Coyol, Alajuela';
-        $supplier->pais = 'CRC';
+        $supplier->pais = 'CRI';
 
         $supplier->save();
         #//se agregan relaciones
@@ -97,7 +97,7 @@ class suppliersseeder extends Seeder
         $supplier = new \App\Models\Supplier();
         $supplier->nombre = 'Lanco';
         $supplier->direccion = 'Zona Franca Pro Park, al costado oeste de la Dos Pinos, Coyol, Alajuela';
-        $supplier->pais = 'CRC';
+        $supplier->pais = 'CRI';
         $supplier->save();
         #//se agregan relaciones
         $supplier->Contacts()->attach([7]);

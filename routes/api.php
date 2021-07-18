@@ -88,8 +88,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'location'
         ], function ($router) {
-            Route::get('', [LocationController::class, 'index'])->middleware(['auth:api']);
-            Route::get('/{id}', [LocationController::class, 'show'])->middleware(['auth:api']);
+            Route::get('', [LocationController::class, 'index'])/*->middleware(['auth:api'])*/;
+            Route::get('/{id}', [LocationController::class, 'show'])/*->middleware(['auth:api'])*/;
         });
 
         //movementtype
@@ -113,7 +113,7 @@ Route::group(['prefix' => 'v1'], function () {
             'prefix' => 'supplier'
         ], function ($router) {
             Route::get('', [SupplierController::class, 'index'])/*->middleware(['auth:api'])*/;
-            Route::post('store', [SupplierController::class, 'store']);
+            Route::post('', [SupplierController::class, 'store']);
             Route::get('/{id}', [SupplierController::class, 'show'])/*->middleware(['auth:api'])*/;
             Route::patch('/{id}', [SupplierController::class, 'update']);
         });
@@ -123,11 +123,11 @@ Route::group(['prefix' => 'v1'], function () {
             'prefix' => 'product'
         ], function ($router) {
             Route::get('', [ProductController::class, 'index'])/*->middleware(['auth:api'])*/;
-            Route::post('', [ProductController::class, 'create'])->middleware(['auth:api', 'scopes:administrador']);
+            Route::post('', [ProductController::class, 'store'])/*->middleware(['auth:api', 'scopes:administrador'])*/;
             Route::get('all', [ProductController::class, 'all']);
             Route::get('reposicion', [ProductController::class, 'reposicion']);
             Route::get('total', [ProductController::class, 'total']);
-            Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api', 'scopes:administrador']);
+            Route::patch('/{id}', [ProductController::class, 'update'])/*->middleware(['auth:api', 'scopes:administrador'])*/;
             Route::get('/{id}', [ProductController::class, 'show']);
         });
 
