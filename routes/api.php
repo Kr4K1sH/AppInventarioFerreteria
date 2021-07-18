@@ -35,7 +35,6 @@ Route::group(['prefix' => 'v1'], function () {
             Route::post('login', [AuthController::class, 'login']);
             Route::post('register', [AuthController::class, 'register']);
             Route::post('logout', [AuthController::class, 'logout']);
-            Route::patch('update/{id}', [AuthController::class, 'Update']);
         });
 
         //profiles
@@ -52,7 +51,12 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('', [UserController::class, 'index']);
             Route::get('allDisable', [UserController::class, 'allDisable']);
             Route::get('requests', [UserController::class, 'requests']);
+            Route::patch('update/{id}', [UserController::class, 'update']);
+            Route::patch('updateAdmin/{id}',[UserController::class, 'updateAdmin']);
+            Route::get('showSolicitud/{id}', [UserController::class, 'showSolicitud']);
             Route::get('/{id}', [UserController::class, 'showEnable']);
+            Route::get('showDisable/{id}', [UserController::class, 'showDisable']);
+
 
         });
 

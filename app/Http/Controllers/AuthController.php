@@ -34,7 +34,6 @@ public function register(Request $request)
             'password' => 'required|string|min:6',
             'foto' => 'required',
             'profile_id' => 'required',
-
         ]);// added all the fields to register and validate the user registration
 
         //Retornar mensajes de validación
@@ -124,52 +123,6 @@ public function logout()
                 return response()->json($response,422);}
         }
 
-    public function Update(Request $request, $id)
-    { //falta revizar xq no puedo logearme despues de hacer un update.
-
-        $validator = Validator::make($request->all(), [
-            'identificacion' => 'required|int',
-            'name' => 'required|string',
-            'primerApellido' => 'required|string',
-            'segundoApellido' => 'required|string',
-            'estado' => 'required',
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6',
-            'foto' => 'required',
-            'profile_id' => 'required',
-        ]);
-        //retornar mensajes de validacion
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }
-
-        //datos del usuario
-        $usr = User::find($id);
-        $usr->identificacion = $request->input('identificacion');
-        $usr->name = $request->input('name');
-        $usr->primerApellido = $request->input('primerApellido');
-        $usr->segundoApellido = $request->input('segundoApellido');
-        $usr->estado = $request->input('estado');
-        $usr->email = $request->input('email');
-        $usr->password = bcrypt($request->input('password'));
-        $usr->foto = $request->input('foto');
-        //validar que el usuario exista
-        // $user = auth('api')->user();
-        // $user->id = $usr->id;
-        if ($usr->Update()) {
-            $profile = Profile::find($request->input('profile_id'));
-            //sincroniza el perfil id
-           if (!is_null($profile)) {
-                $usr->Profile()->associate($profile);
-                //$profile = Profile::find($request->input('profile_id'));
-            }
-            $response = 'Usuario actualizado!';
-            return response()->json($response, 200);
-        }
-        $response = [
-            'msg' => 'Error durante la actualizacion'
-        ];
-        return response()->json($response, 404);
-    }
+    
 
     }
