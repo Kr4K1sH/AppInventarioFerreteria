@@ -121,7 +121,7 @@ class ProductController extends Controller
                 if (!is_null($request->input('location_id'))) {
                     $producto->Locations()->attach($request->input('location_id'));
                 }
-                if (!is_null($request->input('location_id'))) {
+                if (!is_null($request->input('cantidad'))) {
                     $producto->Locations()->attach($request->input('cantidad'));
                 }
 
@@ -215,8 +215,7 @@ class ProductController extends Controller
             $producto->display_id = $request->input('display_id');
             $producto->user_id = $request->input('user_id');
             $producto->Locations()->cantidad = $request->input('cantidad');
-            //$producto->Inventories()->product_supplier_id = $request->input('product_supplier_id');
-            //$producto->Inventories()->product_location_id = $request->input('product_location_id');
+
 
             if ($producto->update()) {
                 if (!is_null($request->input('supplier_id'))) {
@@ -226,22 +225,10 @@ class ProductController extends Controller
                 if (!is_null($request->input('location_id'))) {
                     $producto->Locations()->sync($request->input('location_id'));
                 }
-                if (!is_null($request->input('location_id'))) {
+                if (!is_null($request->input('cantidad'))) {
                     $producto->Locations()->sync($request->input('cantidad'));
                 }
-                /*if (!is_null($request->input('supplier_id'))) {
-                    $producto->Inventories()->
-                    sync([
-                        $producto->$id => ['product_supplier_id' => $request->input('supplier_id'), 'product_location_id' => $request->input('location_id')]
-                    ]);
-                }*/
-                /*if (!is_null($request->input('product_supplier_id'))) {
-                    $producto->Inventories()->sync($request->input('product_supplier_id'));
-                }
 
-                if (!is_null($request->input('product_location_id'))) {
-                    $producto->Inventories()->sync($request->input('product_location_id'));
-                }*/
 
                 $response = 'Product updated';
                 return response()->json($response, 200);
