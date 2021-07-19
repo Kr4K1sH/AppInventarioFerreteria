@@ -90,12 +90,13 @@ class ProductController extends Controller
             'color' => 'required',
             'imagen' => 'required',
 
-
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->messages(), 422);
         }
+
+        DB::beginTransaction();
 
         try {
             $producto = new Product();
@@ -112,31 +113,27 @@ class ProductController extends Controller
             $producto->category_id = $request->input('category_id');
             $producto->display_id = $request->input('display_id');
             $producto->user_id = $request->input('user_id');
-            $producto->Locations()->cantidad = $request->input('cantidad');
 
-            if ($producto->save()) {
-                if (!is_null($request->input('supplier_id'))) {
-                    $producto->Suppliers()->attach($request->input('supplier_id'));
-                }
-                if (!is_null($request->input('location_id'))) {
-                    $producto->Locations()->attach($request->input('location_id'));
-                }
-                if (!is_null($request->input('cantidad'))) {
-                    $producto->Locations()->attach($request->input('cantidad'));
-                }
-
-
-                $response = 'Product created';
-                return response()->json($response, 201);
-            } else {
-                $response = [
-                    'msg' => 'Error to save Product'
-                ];
-                return response()->json($response, 404);
+            $producto->save();
+            if (!is_null($request->input('supplier_id'))) {
+                $producto->Suppliers()->attach($request->input('supplier_id'));
             }
-        } catch (Exception $ex) {
-            return response()->json($ex->getMessage(), 422);
+
+            $detalles = $request->input('detalles');
+            foreach ($detalles as $item) {
+                $producto->Locations()->attach($item['idItem'], [
+                    'cantidad' => $item['cantidad']
+
+                ]);
+            }
+            DB::commit();
+            $response = 'Producto creado!';
+            return response()->json($response, 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage(), 422);
         }
+
     }
 
     /**
