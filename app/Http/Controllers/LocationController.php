@@ -25,6 +25,27 @@ class LocationController extends Controller
         }
     }
 
+    public function Location()
+    {
+        try {
+            $display = Location::where('estado', true)->orderBy('descripcion', 'asc')->get();
+            $response = $display;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+    public function showLocation()
+    {
+        try {
+            $display = Location::where('estado', true)->get();
+            $response = $display;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

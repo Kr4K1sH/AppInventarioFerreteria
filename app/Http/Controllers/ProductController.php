@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
+use App\Models\ProductLocation;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -158,6 +160,19 @@ class ProductController extends Controller
             return response()->json($e->getMessage(), 422);
         }
     }
+    public function showProduct($id)
+    {
+        try {
+            $display = Product::where('id', $id)->with(['Category', 'Suppliers', 'User', /* /'Suppliers','Display', 'Inventories'*/])->where('cantidad_total', '>', 'cantidad_minima')->orderBy('nombre', 'asc')->first();
+
+            $response = $display;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+
+
+    }
 
     public function showDisable($id)
     {
@@ -181,17 +196,14 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updatetests(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|min:3',
-            'descripcion' => 'required',
-            'cantidad_maxima' => 'required',
-            'cantidad_minima' => 'required',
-            'cantidad_total' => 'required',
-            'peso' => 'required',
-            'color' => 'required',
-            'imagen' => 'required',
+            'id' => 'int',
+            'idBodega' => 'int',
+            'cantidadBodega'=> 'int',
+            'idsucursal' => 'int',
+            'cantidadsucursal' => 'int',
 
         ]);
 
@@ -199,49 +211,94 @@ class ProductController extends Controller
             return response()->json($validator->messages(), 422);
         }
 
-        try {
+try{
+
             $producto = Product::find($id);
-            $producto->nombre = $request->input('nombre');
-            $producto->descripcion = $request->input('descripcion');
-            $producto->cantidad_maxima = $request->input('cantidad_maxima');
-            $producto->cantidad_minima = $request->input('cantidad_minima');
-            $producto->cantidad_total = $request->input('cantidad_total');
-            $producto->costo_unidad = $request->input('costo_unidad');
-            $producto->peso = $request->input('peso');
-            $producto->color = $request->input('color');
-            $producto->imagen = $request->input('imagen');
-            $producto->estado = $request->input('estado');
-            $producto->category_id = $request->input('category_id');
-            $producto->display_id = $request->input('display_id');
-            $producto->user_id = $request->input('user_id');
-            $producto->Locations()->cantidad = $request->input('cantidad');
-
-
-            if ($producto->update()) {
-                if (!is_null($request->input('supplier_id'))) {
-                    $producto->Suppliers()->sync($request->input('supplier_id'));
-                }
-
-                if (!is_null($request->input('location_id'))) {
-                    $producto->Locations()->sync($request->input('location_id'));
-                }
-                if (!is_null($request->input('cantidad'))) {
-                    $producto->Locations()->sync($request->input('cantidad'));
-                }
-
-
-                $response = 'Product updated';
-                return response()->json($response, 200);
-            } else {
-                $response = [
-                    'msg' => 'Error to update Product'
-                ];
-                return response()->json($response, 404);
+            $locationB = Location::find($request->input('idBodega'));
+            if (!is_null($locationB)) {
+                $producto->Locations()->detach($locationB);
+                $producto->Locations()->attach(
+                    $locationB,
+                    ['cantidad' => $request->input('cantidadBodega')]
+                );
             }
-        } catch (Exception $ex) {
-            return response()->json($ex->getMessage(), 422);
+
+            $locationS = Location::find($request->input('idsucursal'));
+            if (!is_null($locationS)) {
+                $producto->Locations()->detach($locationS);
+                $producto->Locations()->attach(
+                    $locationS,
+                    ['cantidad' => $request->input('cantidadsucursal')]
+                );
+            }
+            $response = 'Product updated';
+            return response()->json($response, 200);
+
+
+} catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage(), 422);
         }
+
+
+
+
+
+
+
+
+
+
+          //  $locationB = Location::find($request->input('idlocation'));
+         //     if(!is_null($locationB)){
+         //      $producto->Locations()->attach(
+        //        $locationB['id'],
+        //       ['cantidad' => $request->input('cantidadL')]);
+      //  }
+
+         //   $locationS = Location::find($request->input('idsucursal'));
+          //    if(!is_null($locationS)){
+         //   $producto->Locations()->attach(
+          //      $locationS['id'],
+            //        ['cantidad' => $request->input('cantidadsucursal')]
+           //     );
+            //    }
+
+
+
+
+
+
     }
+
+
+
+/** agrega la cantidad pero agrega otro registro
+*        if ($validator->fails()) {
+*            return response()->json($validator->messages(), 422);
+ *       }
+
+
+  *          $producto = Product::find($id);
+
+   *         $locationB = Location::find($request->input('idbodega'));
+           *   if(!is_null($locationB)){
+        *       $producto->Locations()->attach($locationB['id'],
+        *       ['cantidad' => $request->input('cantidadbodega')]);
+    *    }
+    *    $producto2 = Product::find($id);
+     *         $locationS = Location::find($request->input('idsucursal'));
+     *         if(!is_null($locationS)){
+      *      $producto2->Locations()->attach(
+      *              $locationS['id'],
+  *                  ['cantidad' => $request->input('cantidadsucursal')]
+   *             );
+  *              }
+*
+ *           $response = 'Product updated';
+ *           return response()->json($response, 200);
+*/
+
 
     /**
      * Remove the specified resource from storage.
