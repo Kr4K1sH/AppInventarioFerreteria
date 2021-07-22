@@ -48,7 +48,7 @@ class ProductController extends Controller
         try {
 
             $display = Product::where('cantidad_minima', '>', 'cantidad_total')
-                ->where('estado', false)
+                ->where('estado', 0)
                 ->with(['Category', 'Display', 'User', 'Locations', 'Suppliers', 'Inventories'])
                 ->orderBy('nombre', 'asc')->get();
 
@@ -78,7 +78,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    /*public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|min:3',
@@ -125,6 +125,7 @@ class ProductController extends Controller
                     'cantidad' => $item['cantidad']
 
                 ]);
+
             }
             DB::commit();
             $response = 'Producto creado!';
@@ -134,6 +135,65 @@ class ProductController extends Controller
             return response()->json($e->getMessage(), 422);
         }
 
+    }*/
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|min:3',
+            'descripcion' => 'required',
+            'cantidad_maxima' => 'required',
+            'cantidad_minima' => 'required',
+            'cantidad_total' => 'required',
+            'peso' => 'required',
+            'color' => 'required',
+            'imagen' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            $producto = new Product();
+            $producto->nombre = $request->input('nombre');
+            $producto->descripcion = $request->input('descripcion');
+            $producto->cantidad_maxima = $request->input('cantidad_maxima');
+            $producto->cantidad_minima = $request->input('cantidad_minima');
+            $producto->cantidad_total = $request->input('cantidad_total');
+            $producto->costo_unidad = $request->input('costo_unidad');
+            $producto->peso = $request->input('peso');
+            $producto->color = $request->input('color');
+            $producto->imagen = $request->input('imagen');
+            $producto->estado = $request->input('estado');
+            $producto->category_id = $request->input('category_id');
+            $producto->display_id = $request->input('display_id');
+            $producto->user_id = $request->input('user_id');
+
+
+            if($producto->save()){
+                if (!is_null($request->input('supplier_id'))) {
+                    $producto->Suppliers()->attach($request->input('supplier_id'));
+                }
+
+                /*if (!is_null($request->input('loction_id'))) {
+                    $producto->Locations()->attach($request->input('loction_id'));
+                }*/
+
+                $response = 'Producto creado!';
+                return response()->json($response, 201);
+
+            }else{
+                $response = [
+                    'msg' => 'Error al crear Producto'
+                ];
+                return response()->json($response, 404);
+            }
+
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**
@@ -178,7 +238,7 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    /*public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|min:3',
@@ -226,6 +286,59 @@ class ProductController extends Controller
                     $producto->Locations()->sync($request->input('cantidad'));
                 }
 
+
+                $response = 'Product updated';
+                return response()->json($response, 200);
+            } else {
+                $response = [
+                    'msg' => 'Error to update Product'
+                ];
+                return response()->json($response, 404);
+            }
+        } catch (Exception $ex) {
+            return response()->json($ex->getMessage(), 422);
+        }
+    }*/
+
+    public function update(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|min:3',
+            'descripcion' => 'required',
+            'cantidad_maxima' => 'required',
+            'cantidad_minima' => 'required',
+            'cantidad_total' => 'required',
+            'peso' => 'required',
+            'color' => 'required',
+            'imagen' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+            $producto = new Product();
+            $producto = Product::find($id);
+            $producto->nombre = $request->input('nombre');
+            $producto->descripcion = $request->input('descripcion');
+            $producto->cantidad_maxima = $request->input('cantidad_maxima');
+            $producto->cantidad_minima = $request->input('cantidad_minima');
+            $producto->cantidad_total = $request->input('cantidad_total');
+            $producto->costo_unidad = $request->input('costo_unidad');
+            $producto->peso = $request->input('peso');
+            $producto->color = $request->input('color');
+            $producto->imagen = $request->input('imagen');
+            $producto->estado = $request->input('estado');
+            $producto->category_id = $request->input('category_id');
+            $producto->display_id = $request->input('display_id');
+
+
+            if ($producto->update()) {
+                if (!is_null($request->input('supplier_id'))) {
+                    $producto->Suppliers()->sync($request->input('supplier_id'));
+                }
 
                 $response = 'Product updated';
                 return response()->json($response, 200);

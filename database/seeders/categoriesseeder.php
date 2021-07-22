@@ -14,7 +14,7 @@ class categoriesseeder extends Seeder
     public function run()
     {
         $categories = new \App\Models\Category();
-        $categories->nombre='Construccion';
+        $categories->nombre='Construcción';
         $categories->estado=true;
         $categories->save();
 
