@@ -133,7 +133,7 @@ Route::group(['prefix' => 'v1'], function () {
             Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api']);
             Route::get('/{id}', [ProductController::class, 'show']);
             Route::get('showProduct/{id}',[ProductController::class, 'showProduct']);
-            Route::patch('updatetests/{id}', [ProductController::class, 'updatetests']);
+            Route::patch('updateLocation/{id}', [ProductController::class, 'updateLocation']);
 
         });
 
