@@ -307,7 +307,50 @@ class ProductController extends Controller
         }
 
     }
+    public function updateLocation(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'id' => 'int',
+            'idBodega' => 'boolean',
+            'cantidadBodega' => 'int',
+            'idsucursal' => 'boolean',
+            'cantidadsucursal' => 'int',
 
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        try {
+
+            $producto = Product::find($id);
+           // $locationB = Location::find($request->input('idBodega'));
+            if ($request->input('idBodega') == true ) {
+                $locationB = Location::find(2);
+                $producto->Locations()->detach($locationB);
+                $producto->Locations()->attach(
+                    $locationB,
+                    ['cantidad' => $request->input('cantidadBodega')]
+                );
+            }
+
+           // $locationS = Location::find($request->input('idsucursal'));
+            if ($request->input('idsucursal')==true) {
+                $locationS = Location::find(1);
+                $producto->Locations()->detach($locationS);
+                $producto->Locations()->attach(
+                    $locationS,
+                    ['cantidad' => $request->input('cantidadsucursal')]
+                );
+            }
+            $response = 'Product updated';
+            return response()->json($response, 200);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage(), 422);
+        }
+    }
 
 
 /** agrega la cantidad pero agrega otro registro
