@@ -357,7 +357,7 @@ class ProductController extends Controller
             $response = 'Product updated';
             return response()->json($response, 200);
         } catch (\Exception $e) {
-            DB::rollback();
+            
             return response()->json($e->getMessage(), 422);
         }
     }
