@@ -89,7 +89,10 @@ Route::group(['prefix' => 'v1'], function () {
             'prefix' => 'location'
         ], function ($router) {
             Route::get('', [LocationController::class, 'index'])/*->middleware(['auth:api'])*/;
+            Route::get('showLocation', [LocationController::class, 'showLocation']);
             Route::get('/{id}', [LocationController::class, 'show'])/*->middleware(['auth:api'])*/;
+
+          //  Route::get('location', [LocationController::class, 'Location'])
         });
 
         //movementtype
@@ -129,6 +132,9 @@ Route::group(['prefix' => 'v1'], function () {
             Route::get('total', [ProductController::class, 'total']);
             Route::patch('/{id}', [ProductController::class, 'update'])/*->middleware(['auth:api', 'scopes:administrador'])*/;
             Route::get('/{id}', [ProductController::class, 'show']);
+            Route::get('showProduct/{id}',[ProductController::class, 'showProduct']);
+            Route::patch('updatetests/{id}', [ProductController::class, 'updatetests']);
+
         });
 
         //inventory
