@@ -173,6 +173,11 @@ class ProductController extends Controller
             $producto->display_id = $request->input('display_id');
             $producto->user_id = $request->input('user_id');
 
+            if ($request->input('cantidad_total') < $request->input('cantidad_minima')) {
+                $producto->estado = 0;
+            } else {
+                $producto->estado = 1;
+            }
 
             if($producto->save()){
                 if (!is_null($request->input('supplier_id'))) {
@@ -288,6 +293,11 @@ class ProductController extends Controller
             $producto->category_id = $request->input('category_id');
             $producto->display_id = $request->input('display_id');
 
+            if( $request->input('cantidad_total') < $request->input('cantidad_minima')){
+                $producto->estado = 0;
+            }else{
+                $producto->estado = 1;
+            }
 
             if ($producto->update()) {
                 if (!is_null($request->input('supplier_id'))) {
