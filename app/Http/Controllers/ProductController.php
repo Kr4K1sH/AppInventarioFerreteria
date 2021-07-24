@@ -357,38 +357,10 @@ class ProductController extends Controller
             $response = 'Product updated';
             return response()->json($response, 200);
         } catch (\Exception $e) {
-            
+
             return response()->json($e->getMessage(), 422);
         }
     }
-
-
-/** agrega la cantidad pero agrega otro registro
-*        if ($validator->fails()) {
-*            return response()->json($validator->messages(), 422);
- *       }
-
-
-  *          $producto = Product::find($id);
-
-   *         $locationB = Location::find($request->input('idbodega'));
-           *   if(!is_null($locationB)){
-        *       $producto->Locations()->attach($locationB['id'],
-        *       ['cantidad' => $request->input('cantidadbodega')]);
-    *    }
-    *    $producto2 = Product::find($id);
-     *         $locationS = Location::find($request->input('idsucursal'));
-     *         if(!is_null($locationS)){
-      *      $producto2->Locations()->attach(
-      *              $locationS['id'],
-  *                  ['cantidad' => $request->input('cantidadsucursal')]
-   *             );
-  *              }
-*
- *           $response = 'Product updated';
- *           return response()->json($response, 200);
-*/
-
 
     /**
      * Remove the specified resource from storage.

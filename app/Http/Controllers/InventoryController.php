@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Inventory;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class InventoryController extends Controller
 {
@@ -72,26 +75,6 @@ class InventoryController extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
     /**
      * Display the specified resource.
@@ -111,14 +94,94 @@ class InventoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  \App\Models\Inventory  $inventory
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inventory $inventory)
+    public function storeEntradas(Request $request)
     {
-        //
+        /*$validator = Validator::make($request->all(), [
+            'description' => 'required | min:5',
+            'movement_id' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }*/
+
+        DB::beginTransaction();
+
+        try {
+            $inventory = new Inventory();
+            $inventory->movement_id = $request->input('movement_id');
+            $inventory->description = $request->input('description');
+            $inventory->fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
+            $inventory->user_id = $request->input('user_id');
+
+            $inventory->save();
+
+            $detalles = $request->input('detalles');
+            foreach ($detalles as $item) {
+
+                $inventory->Products()->attach($item['idItem'], [
+                    'cantidad' => $item['cantidad']
+
+                ]);
+            }
+            DB::commit();
+            $response = 'Entrada registrada!';
+            return response()->json($response, 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeSalidas(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'description' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 422);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $inventory = new Inventory();
+
+
+            $detalles = $request->input('detalles');
+            foreach ($detalles as $item) {
+                $inventory->movement_id = $request->input('movement_id');
+                $inventory->description = $request->input('description');
+                $inventory->fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
+                $inventory->user_id = $request->input('user_id');
+
+                $inventory->save();
+                $inventory->Products()->attach($item['idItem'], [
+                    'cantidad' => $item['cantidad']
+
+                ]);
+            }
+            DB::commit();
+            $response = 'Salida registrada!';
+            return response()->json($response, 201);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json($e->getMessage(), 422);
+        }
     }
 
     /**

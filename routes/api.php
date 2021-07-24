@@ -107,8 +107,10 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'movement'
         ], function ($router) {
-            Route::get('', [MovementController::class, 'index'])->middleware(['auth:api']);
-            Route::get('/{id}', [MovementController::class, 'show'])->middleware(['auth:api']);
+            Route::get('', [MovementController::class, 'index'])/*->middleware(['auth:api'])*/;
+            Route::get('entradas', [MovementController::class, 'entradas'])/*->middleware(['auth:api'])*/;
+            Route::get('salidas', [MovementController::class, 'salidas'])/*->middleware(['auth:api'])*/;
+            Route::get('/{id}', [MovementController::class, 'show'])/*->middleware(['auth:api'])*/;
         });
 
         //supplier
@@ -125,15 +127,15 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group([
             'prefix' => 'product'
         ], function ($router) {
-            Route::get('', [ProductController::class, 'index'])->middleware(['auth:api']);
-            Route::post('', [ProductController::class, 'store'])->middleware(['auth:api']);
+            Route::get('', [ProductController::class, 'index'])/*->middleware(['auth:api'])*/;
+            Route::post('', [ProductController::class, 'store'])/*->middleware(['auth:api'])*/;
             Route::get('all', [ProductController::class, 'all']);
             Route::get('reposicion', [ProductController::class, 'reposicion']);
             Route::get('total', [ProductController::class, 'total']);
-            Route::patch('/{id}', [ProductController::class, 'update'])->middleware(['auth:api']);
+            Route::patch('/{id}', [ProductController::class, 'update'])/*->middleware(['auth:api'])*/;
             Route::get('/{id}', [ProductController::class, 'show']);
             Route::get('showProduct/{id}',[ProductController::class, 'showProduct']);
-            Route::patch('updateLocation/{id}', [ProductController::class, 'updateLocation']);
+            Route::patch('updateLocation/{id}', [ProductController::class, 'updateLocation'])->middleware(['auth:api']);
 
         });
 
@@ -144,6 +146,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('totalEntrada', [InventoryController::class, 'totalEntrada']);
         Route::get('totalSalida', [InventoryController::class, 'totalSalida']);
         Route::get('/{id}', [InventoryController::class, 'show'])/*->middleware(['auth:api'])*/;
+        Route::post('entrada', [InventoryController::class, 'storeEntradas'])/*->middleware(['auth:api'])*/;
+        Route::post('salida', [InventoryController::class, 'storeSalidas'])/*->middleware(['auth:api'])*/;
     }); //end group inventory
 
 });//end group v1

@@ -25,6 +25,29 @@ class MovementController extends Controller
         }
     }
 
+    public function entradas()
+    {
+        try {
+            $movement = Movement::orderBy('descripcion', 'asc')->where('movementtype_id', 1)->get();
+            $response = $movement;
+            return response()->json($response, 200);
+
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
+    public function salidas()
+    {
+        try {
+            $movement = Movement::orderBy('descripcion', 'asc')->where('movementtype_id', 2)->get();
+            $response = $movement;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *
