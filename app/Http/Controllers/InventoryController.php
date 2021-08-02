@@ -101,15 +101,15 @@ class InventoryController extends Controller
      */
     public function storeEntradas(Request $request)
     {
-        /*$validator = Validator::make($request->all(), [
-            'description' => 'required | min:5',
-            'movement_id' => 'required',
+        // $validator = Validator::make($request->all(), [
+        //     'description' => 'required | min:5',
+        //     'movement_id' => 'required',
 
-        ]);
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }*/
+        // if ($validator->fails()) {
+        //     return response()->json($validator->messages(), 422);
+        // }
 
         DB::beginTransaction();
 
@@ -123,13 +123,14 @@ class InventoryController extends Controller
             $inventory->save();
 
             $detalles = $request->input('detalles');
+
             foreach ($detalles as $item) {
+                $inventory->Products()->attach(
 
-                $inventory->Products()->attach($item['idItem'], [
-                    'cantidad' => $item['cantidad']
-
-                ]);
+                    $item['idItem'], ['cantidad' => $item['cantidad']]
+                );
             }
+
             DB::commit();
             $response = 'Entrada registrada!';
             return response()->json($response, 201);
@@ -147,34 +148,27 @@ class InventoryController extends Controller
      */
     public function storeSalidas(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'description' => 'required',
-
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 422);
-        }
-
         DB::beginTransaction();
 
         try {
             $inventory = new Inventory();
+            $inventory->movement_id = $request->input('movement_id');
+            $inventory->description = $request->input('description');
+            $inventory->fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
+            $inventory->user_id = $request->input('user_id');
 
+            $inventory->save();
 
             $detalles = $request->input('detalles');
+
             foreach ($detalles as $item) {
-                $inventory->movement_id = $request->input('movement_id');
-                $inventory->description = $request->input('description');
-                $inventory->fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
-                $inventory->user_id = $request->input('user_id');
+                $inventory->Products()->attach(
 
-                $inventory->save();
-                $inventory->Products()->attach($item['idItem'], [
-                    'cantidad' => $item['cantidad']
-
-                ]);
+                    $item['idItem'],
+                    ['cantidad' => $item['cantidad']]
+                );
             }
+
             DB::commit();
             $response = 'Salida registrada!';
             return response()->json($response, 201);

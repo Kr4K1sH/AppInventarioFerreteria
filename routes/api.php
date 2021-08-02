@@ -146,8 +146,8 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('totalEntrada', [InventoryController::class, 'totalEntrada']);
         Route::get('totalSalida', [InventoryController::class, 'totalSalida']);
         Route::get('/{id}', [InventoryController::class, 'show'])/*->middleware(['auth:api'])*/;
-        Route::post('entrada', [InventoryController::class, 'storeEntradas'])/*->middleware(['auth:api'])*/;
-        Route::post('salida', [InventoryController::class, 'storeSalidas'])/*->middleware(['auth:api'])*/;
+        Route::post('entrada', [InventoryController::class, 'storeEntradas'])->middleware(['auth:api']);
+        Route::post('salida', [InventoryController::class, 'storeSalidas'])->middleware(['auth:api']);
     }); //end group inventory
 
 });//end group v1
