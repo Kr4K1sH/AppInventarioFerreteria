@@ -121,13 +121,13 @@ class InventoryController extends Controller
             $inventory->user_id = $request->input('user_id');
 
             $inventory->save();
-
             $detalles = $request->input('detalles');
 
             foreach ($detalles as $item) {
                 $inventory->Products()->attach(
 
                     $item['idItem'], ['cantidad' => $item['cantidad']]
+                    
                 );
             }
 
