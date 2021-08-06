@@ -124,7 +124,7 @@ class productseeder extends Seeder
         $products->category_id = '7';
         $products->display_id = '1';
         $products->user_id = '1';
-        $products->estado = 3;
+        $products->estado = 1;
         $products->peso = '45';
         $products->color = '#efebeb';
         $products->imagen = 'https://cr.epaenlinea.com/pub/media/version20200605/catalog/product/cache/a83b746ef25730b9cb1cc414bac0f04a/0/2/0281077.jpg';

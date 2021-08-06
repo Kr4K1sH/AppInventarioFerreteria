@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inventory;
+use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Database\Seeders\productseeder;
 
 class InventoryController extends Controller
 {
@@ -127,10 +129,26 @@ class InventoryController extends Controller
                 $inventory->Products()->attach(
 
                     $item['idItem'], ['cantidad' => $item['cantidad']]
-                    
-                );
-            }
 
+                );
+                $product = Product::find($item['idItem']);//$item['cantidad'] > $product->cantidad_minima &&
+                 if(  ($product->cantidad_total +$item['cantidad'])<= $product->cantidad_maxima  ){
+                          $product->cantidad_total += $item['cantidad'];
+                           $product->save();
+                 }
+
+                if ( ($product->cantidad_total + $item['cantidad']) > $product->cantidad_maxima) {
+                  $var = 0;
+                  $var += (($product->cantidad_total + $item['cantidad']) - $product->cantidad_maxima);
+                 $product->cantidad_total = (($product->cantidad_total + $item['cantidad'])-$var);
+                     $product->save();
+                }
+                if ($product->cantidad_maxima ==  $product->cantidad_total) {
+                    $product->estado = 0;
+                    $product->save();
+                }
+
+        }
             DB::commit();
             $response = 'Entrada registrada!';
             return response()->json($response, 201);
@@ -167,6 +185,23 @@ class InventoryController extends Controller
                     $item['idItem'],
                     ['cantidad' => $item['cantidad']]
                 );
+
+                $product = Product::find($item['idItem']); //$item['cantidad'] > $product->cantidad_minima &&
+                if ( ($product->cantidad_total - $item['cantidad'] ) >= $product->cantidad_minima) {
+                   if($product->estado =0){
+                       $product->estado = 1;
+                   }
+                    $product->cantidad_total -= $item['cantidad'] ;
+                    $product->save();
+                }
+                if( ($product->cantidad_total - $item['cantidad']) <= $product->cantidad_minima ){
+                    if(($product->cantidad_total - $item['cantidad'])!=0 ){
+                        $product->cantidad_total -= $item['cantidad'];
+                    }
+                    $product->estado = 0;
+                    $product->save();
+                }
+
             }
 
             DB::commit();
