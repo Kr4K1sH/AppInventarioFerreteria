@@ -95,6 +95,18 @@ class InventoryController extends Controller
         }
     }
 
+    public function showByUser($idUser)
+    {
+        try {
+
+            $user = Inventory::where('user_id', $idUser)->with(['Movement', 'User', 'Products'])->orderBy('fecha', 'desc')->get();
+            $response = $user;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            return response()->json($e->getMessage(), 422);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -103,16 +115,6 @@ class InventoryController extends Controller
      */
     public function storeEntradas(Request $request)
     {
-        // $validator = Validator::make($request->all(), [
-        //     'description' => 'required | min:5',
-        //     'movement_id' => 'required',
-
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return response()->json($validator->messages(), 422);
-        // }
-
         DB::beginTransaction();
 
         try {
