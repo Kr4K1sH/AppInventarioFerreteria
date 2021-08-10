@@ -67,7 +67,7 @@ class InventoryController extends Controller
     public function totalSalida()
     {
         try {
-
+            $fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
             $display = Inventory::where('movement_id', 2)->count();
 
             $response = $display;
