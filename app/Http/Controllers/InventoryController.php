@@ -32,8 +32,9 @@ class InventoryController extends Controller
     public function entradas()
     {
         try {
-            $user = Inventory::with(['Movement', 'User', 'Products'])->where('movement_id', '1')->orderBy('fecha', 'asc')->get();
-            $response = $user;
+
+            $inv = Inventory::with(['Movement', 'User', 'Products'])->where('movement_id', '1')->orderBy('fecha', 'asc')->get();
+            $response = $inv;
             return response()->json($response, 200);
         } catch (Exception $e) {
             return response()->json($e->getMessage(), 422);
@@ -55,7 +56,8 @@ class InventoryController extends Controller
     {
         try {
 
-            $display = Inventory::where('movement_id', 1)->count();
+            $fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
+            $display = Inventory::whereBetween('movement_id', [1, 5])->where('fecha', $fecha)->count();
 
             $response = $display;
             return response()->json($response, 200);
@@ -68,7 +70,7 @@ class InventoryController extends Controller
     {
         try {
             $fecha = Carbon::parse(Carbon::now())->format('Y-m-d');
-            $display = Inventory::where('movement_id', 2)->count();
+            $display = Inventory::whereBetween('movement_id', [6, 10])->where('fecha', $fecha)->count();
 
             $response = $display;
             return response()->json($response, 200);
@@ -190,14 +192,14 @@ class InventoryController extends Controller
 
                 $product = Product::find($item['idItem']); //$item['cantidad'] > $product->cantidad_minima &&
                 if ( ($product->cantidad_total - $item['cantidad'] ) >= $product->cantidad_minima) {
-                   if($product->estado =0){
+                   if($product->estado == 0){
                        $product->estado = 1;
                    }
                     $product->cantidad_total -= $item['cantidad'] ;
                     $product->save();
                 }
                 if( ($product->cantidad_total - $item['cantidad']) <= $product->cantidad_minima ){
-                    if(($product->cantidad_total - $item['cantidad'])!=0 ){
+                    if(($product->cantidad_total - $item['cantidad'])!= 0 ){
                         $product->cantidad_total -= $item['cantidad'];
                     }
                     $product->estado = 0;
